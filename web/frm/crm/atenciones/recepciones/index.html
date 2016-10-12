@@ -1,0 +1,202 @@
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#busqueda" aria-controls="busqueda" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Busqueda</a></li>
+    <li role="presentation"><a href="#registro" aria-controls="registro" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Registro</a></li>
+    <li role="presentation"><a href="#asignaciones" aria-controls="asignaciones" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Asignaciones</a></li>
+</ul>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="busqueda">
+        <div id="panelBuscar" class="panel panel-default">
+            <div class="panel-heading centrado">Recepciones | Buscar Cliente</div>
+            <div class="panel-body">
+                <form id="form-buscar">
+                    <input type="hidden" id="bpagina" name="bpagina" value="1" />
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="bnombre">Nombre</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="bnombre" name="bnombre" type="text" class="form-control input-sm" placeholder="Nombre">
+                        </div>
+                        <div class="col-md-3">
+                            <button id="boton-buscarCliente" type="button" class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <div id="resultado" class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Código</th>
+                                <th>Cédula</th>
+                                <th>RUC</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-clientes">
+                        </tbody>
+                    </table>
+                    <nav>
+                        <ul class="pager">
+                            <li id="anterior"><a href="#"><span aria-hidden="true">&larr;</span> Anterior</a></li>
+                            <li id="siguiente"><a href="#">Siguiente <span aria-hidden="true">&rarr;</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="registro">
+        <div id="panelPrograma" class="panel panel-default">
+            <div class="panel-heading centrado">Recepciones | Registro de Clientes</div>
+            <div class="panel-body">
+                <form id="formPrograma">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="id_cliente">Id</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input id="id_cliente" name="id_cliente" type="text" class="form-control input-sm" placeholder="Id Cliente" readonly="readonly">
+                        </div>
+                        <div class="col-md-9">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="codigo_cliente">Código</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input id="codigo_cliente" name="codigo_cliente" type="text" class="form-control input-sm" placeholder="Código Cliente" readonly="readonly">
+                        </div>
+                        <div class="col-md-9">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="cedula_cliente">Cédula</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input id="cedula_cliente" name="cedula_cliente" type="text" class="form-control input-sm" placeholder="Cédula Cliente">
+                        </div>
+
+                        <div class="col-md-9">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="ruc_cliente">RUC</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input id="ruc_cliente" name="ruc_cliente" type="text" class="form-control input-sm" placeholder="RUC Cliente">
+                        </div>
+                        <div class="col-md-10">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="nombre_cliente">Nombre</label>
+                        </div>
+                        <div class="col-md-11">
+                            <input id="nombre_cliente" name="nombre_cliente" type="text" class="form-control input-sm" placeholder="Nombre del Cliente">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="direccion_cliente">Dirección</label>
+                        </div>
+                        <div class="col-md-11">
+                            <input id="direccion_cliente" name="direccion_cliente" type="text" class="form-control input-sm" placeholder="Dirección del Cliente">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="id_ciudad">Ciudad</label>
+                        </div>
+                        <div class="col-md-11">
+                            <select id="id_ciudad" name="id_ciudad" class="form-control input-sm">
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="fecha_nacimiento_cliente">Nacimiento</label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class='input-group' id='datetimepicker_fecha_nacimiento_cliente'>
+                                <input id="fecha_nacimiento_cliente" name="fecha_nacimiento_cliente" type='text' class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="email_cliente">E-mail</label>
+                        </div>
+                        <div class="col-md-11">
+                            <input id="mail_cliente" name="mail_cliente" type="text" class="form-control input-sm" placeholder="E-mail del Cliente">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="telefono_cliente">Teléfono</label>
+                        </div>
+                        <div class="col-md-11">
+                            <input id="telefono_cliente" name="telefono_cliente" type="text" class="form-control input-sm" placeholder="Teléfono del Cliente">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="form-control-static" for="contacto_cliente">Contacto</label>
+                        </div>
+                        <div class="col-md-11">
+                            <input id="contacto_cliente" name="contacto_cliente" type="text" class="form-control input-sm" placeholder="Contacto del Cliente">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer centrado">
+                <button id="botonAgregar" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+                <button id="botonModificar" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</button>
+                <button id="botonSalir" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir</button>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="asignaciones">
+        <div id="panelBuscar" class="panel panel-default">
+            <div class="panel-heading centrado">Recepciones | Asignar Cliente a Vendedor</div>
+            <div class="panel-body">
+                <div id="resultado" class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Sección</th>
+                                <th>Nombre</th>
+                                <th>Asignado</th>
+                                <th>Atendido</th>
+                                <th>Liberado</th>
+                                <th class="centrado">Estado</th>
+                                <th class="centrado">Asignar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-vendedores">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="frm/crm/atenciones/recepciones/js/funciones.js" type="text/javascript"></script>
+<script>
+                                inicializar_formulario();
+                                inicializar_buscar_cliente();
+</script>
