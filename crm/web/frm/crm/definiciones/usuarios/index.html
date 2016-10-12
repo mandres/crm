@@ -1,0 +1,85 @@
+<div id="panel-formulario" class="panel panel-default">
+    <div class="panel-heading centrado">
+        Administrar Usuarios
+    </div>
+    <div class="panel-body">
+        <form id="form-formulario">
+            <div class="row">
+                <div class="col col-md-1">
+                    <label for="id_usuario">Id</label>
+                </div>
+                <div class="col col-md-2">
+                    <input type="text" id="id_usuario" name="id_usuario" class="form-control input-group-sm" value="0" placeholder="Id">
+                </div>
+                <div class="col col-md-1">
+                    <button id="boton-buscar-usuario" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-1">
+                    <label for="nombre_usuario">Nombre</label>
+                </div>
+                <div class="col col-md-11">
+                    <input type="text" id="nombre_usuario" name="nombre_usuario" class="form-control input-group-sm" value="" placeholder="Nombre de su Usuario">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-1">
+                    <label for="usuario_usuario">Usuario</label>
+                </div>
+                <div class="col col-md-5">
+                    <input type="text" id="usuario_usuario" name="usuario_usuario" class="form-control input-group-sm" value="" placeholder="Su usuario">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-1">
+                    <label for="clave_usuario">Contraseña</label>
+                </div>
+                <div class="col col-md-5">
+                    <input type="password" id="clave_usuario" name="clave_usuario" class="form-control input-group-sm" value="" placeholder="Su contraseña">
+                </div>
+            </div>
+        </form>
+        <br>
+        <div id="panel-formulario" class="panel panel-default">
+            <div class="panel-heading centrado">
+                Administrar Roles
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Rol</th>
+                            <th>Nombre</th>
+                            <th class="centrado">
+                                <button onclick="agregar_linea()" id="boton-agregar-linea" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyDetalle">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer centrado">
+        <div class="progress progress-striped active" id="estadoServidor">
+            <div class="progress-bar" role="progressbar"
+                 aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
+                 style="width: 100%">
+                <span class="sr-only"></span>
+            </div>
+        </div>
+        <button id="boton-agregar" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+        <button id="boton-modificar" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</button>
+        <button id="boton-eliminar" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</button>
+        <button id="boton-retornar" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir</button>
+    </div>
+</div>
+<script src="frm/crm/definiciones/usuarios/js/funciones.js" type="text/javascript"></script>
+<script>
+                                    verificar_sesion_ajax();
+                                    inicializar_formulario();
+</script>
