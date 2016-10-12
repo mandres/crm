@@ -10,7 +10,7 @@ public class Conexion {
     private final static String servidor = "localhost";
     private final static String puerto = "5432";
     private final static String usuario = "postgres";
-    private final static String clave = "edgar0672";
+    private final static String clave = "postgres";
 //    private final static String clave = "1";
     private final static String basedato = "crm_quality";
     private static Connection con;
