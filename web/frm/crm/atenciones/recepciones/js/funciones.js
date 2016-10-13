@@ -135,7 +135,7 @@ function buscar_cliente_success(json) {
 function seleccionar_cliente($this) {
     var id_cliente = $($this).find('td').eq(0).text();
     buscar_idcliente_ajax(id_cliente);
-    $('.nav-tabs li:eq(1) a').tab('show');
+    $('.nav-pills li:eq(1) a').tab('show');
     deshabilitar_agregar();
 }
 
