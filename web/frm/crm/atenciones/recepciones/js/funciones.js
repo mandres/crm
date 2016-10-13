@@ -5,6 +5,8 @@ function inicializar_formulario() {
     verificar_sesion_ajax();
     $("#cedula_cliente").focus();
 
+// Funciones de siguiente campo con enter
+
     siguiente_campo("#cedula_cliente", "#ruc_cliente", false);
     siguiente_campo("#ruc_cliente", "#nombre_cliente", false);
     siguiente_campo("#nombre_cliente", "#direccion_cliente", false);
@@ -14,6 +16,7 @@ function inicializar_formulario() {
     siguiente_campo("#mail_cliente", "#telefono_cliente", false);
     siguiente_campo("#telefono_cliente", "#contacto_cliente", false);
 
+// Inicializar datetimepicker
     $('#fecha_nacimiento_cliente, #fecha_desde, #fecha_hasta').datetimepicker({
         startDate: new Date(),
         timepicker: false,
@@ -21,6 +24,7 @@ function inicializar_formulario() {
     });
     $.datetimepicker.setLocale('es');
 
+// Inicializar funciones de los botones
     $("#botonAgregar").on('click', function () {
         if (validar_ficha_cliente()) {
             agregar_cliente_ajax();
@@ -38,6 +42,23 @@ function inicializar_formulario() {
         $('aside').html("");
     });
     buscar_ciudad_por_nombre();
+    combo_seccion_ajax();
+}
+
+//Inicializar cargar datos secciones en combo
+
+function combo_seccion_ajax() {
+    var pDatosFormulario = "";
+    var pUrl = 'seccion/generarLista';
+    var pBeforeSend = '';
+    var pSuccess = 'combo_seccion_ajax_success(json)';
+    var pError = 'ajax_error()';
+    var pComplete = '';
+    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
+}
+
+function combo_seccion_ajax_success(json){
+    $("#id_seccion").html(json.combo);
 }
 
 // VALIDAR DATOS FORMULARIO
