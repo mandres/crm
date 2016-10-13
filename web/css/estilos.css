@@ -287,7 +287,8 @@ ul {
 #estadoServidor {
   display: none; }
 
+.espRow {
+  padding-top: 5px; }
+
 tbody {
   cursor: pointer; }
-
-/*# sourceMappingURL=estilos.css.map */

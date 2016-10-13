@@ -14,7 +14,7 @@ function inicializar_formulario() {
     siguiente_campo("#mail_cliente", "#telefono_cliente", false);
     siguiente_campo("#telefono_cliente", "#contacto_cliente", false);
 
-    $('#fecha_nacimiento_cliente').datetimepicker({
+    $('#fecha_nacimiento_cliente, #fecha_desde, #fecha_hasta').datetimepicker({
         startDate: new Date(),
         timepicker: false,
         format: 'd/m/Y'
@@ -31,6 +31,9 @@ function inicializar_formulario() {
             modificar_cliente_ajax();
         }
     });
+    $("#botonAtender").on('click', function () {
+        atencion_agregar_ajax();
+    });
     $("#botonSalir").on('click', function () {
         $('aside').html("");
     });
@@ -45,6 +48,7 @@ function validar_ficha_cliente() {
     var ruc_cliente = $("#ruc_cliente").val();
     var nombre_cliente = $("#nombre_cliente").val();
     var direccion_cliente = $("#direccion_cliente").val();
+    var id_ciudad = $("#id_ciudad").val();
     var fecha_nacimiento_cliente = $("#fecha_nacimiento_cliente").val();
 
     if (cedula_cliente === "" & ruc_cliente === "") {
@@ -55,6 +59,9 @@ function validar_ficha_cliente() {
         ok = false;
     } else if (direccion_cliente.length === 0) {
         mostrar_mensaje('Mensaje del Sistema', 'Debe asignar una direccion del Cliente', 'Aceptar', '$("#direccion_cliente").focus()');
+        ok = false;
+    } else if (id_ciudad === null) {
+        mostrar_mensaje('Mensaje del Sistema', 'Debe seleccionar una Ciudad', 'Aceptar', '$("#id_ciudad").focus()');
         ok = false;
     } else if (fecha_nacimiento_cliente.length === 0) {
         mostrar_mensaje('Mensaje del Sistema', 'El dato Fecha de Nacimiento es Obligatorio', 'Aceptar', '$("#fecha_nacimiento_cliente").focus()');
@@ -128,7 +135,7 @@ function buscar_cliente_success(json) {
 function seleccionar_cliente($this) {
     var id_cliente = $($this).find('td').eq(0).text();
     buscar_idcliente_ajax(id_cliente);
-    $('.nav-tabs li:eq(1) a').tab('show');
+    $('.nav-pills li:eq(1) a').tab('show');
     deshabilitar_agregar();
 }
 
@@ -259,5 +266,25 @@ function habilitar_agregar() {
 function deshabilitar_agregar() {
     $("#botonAgregar").prop("disabled", true);
     $("#botonModificar").prop("disabled", false);
+}
+
+// ATENCION
+
+function atencion_agregar_ajax() {
+    var pDatosFormulario = $('#formPrograma').serialize();
+    var pUrl = 'atencion/agregar';
+    var pBeforeSend = '';
+    var pSuccess = 'atencion_agregar_ajax_success(json)';
+    var pError = 'ajax_error()';
+    var pComplete = '';
+    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
+}
+
+function atencion_agregar_ajax_success(json) {
+    if (json.agregado) {
+        mostrar_mensaje('Mensaje del Sistema', 'AGREGADO: Fue Generado el Tiket N: ' + json.id_atencion, 'Aceptar', '');
+    } else {
+        mostrar_mensaje('Mensaje del Sistema', 'Error:' + json.mensaje, 'Aceptar', '');
+    }
 }
 

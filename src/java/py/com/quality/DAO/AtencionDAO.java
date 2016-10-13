@@ -3,7 +3,10 @@ package py.com.quality.DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import py.com.quality.modelos.Atencion;
 import py.com.quality.modelos.Cliente;
 import py.com.quality.modelos.EstadoAtencion;
@@ -12,6 +15,50 @@ import py.com.quality.modelos.Vendedor;
 import py.com.quality.utiles.Conexion;
 
 public class AtencionDAO {
+    
+        public Map agregar(Atencion atencion) {
+        Map valor = new HashMap();
+        boolean ok = false;
+        int id_atencion = 0;
+
+        if (Conexion.conectar()) {
+            try {
+                String sql = "insert into atenciones("
+                        + "id_usuario, fechahora_recepcion, id_estadoatencion, id_cliente) "
+                        + "values(" + atencion.getUsuario().getId_usuario() + ", "
+                        + " now(), "
+                        + "1, "+atencion.getCliente().getId_cliente()+")";
+
+                Conexion.getSt().executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+
+                try (ResultSet keyset = Conexion.getSt().getGeneratedKeys()) {
+                    if (keyset.next()) {
+                        id_atencion = keyset.getInt("id_atencion");
+                        ok = true;
+                    }
+                    
+                    Conexion.getCon().commit();
+                    valor.put("ok", ok);
+                    valor.put("id_atencion", id_atencion);
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("--> " + ex.getLocalizedMessage());
+                String mensaje = ex.getLocalizedMessage();
+                valor.put("mensaje", mensaje);
+                try {
+                    Conexion.getCon().rollback();
+                } catch (SQLException ex1) {
+                    System.out.println("--> " + ex1.getLocalizedMessage());
+                }
+            }
+        }
+        Conexion.cerrar();
+        return valor;
+    }
+    
+    
+    
 
     public ArrayList buscarAsignaciones() {
         ArrayList datos = new ArrayList();

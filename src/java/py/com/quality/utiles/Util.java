@@ -133,10 +133,14 @@ public class Util {
     public static String sqlDateToString(java.sql.Date fecha) {
         String string;
         Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(fecha);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        string = sdf.format(fecha);
-        return string;
+        if (fecha == null) {
+            return null;
+        } else {
+            calendar.setTime(fecha);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            string = sdf.format(fecha);
+            return string;
+        }
     }
 
     public static Timestamp stringToUtilTimestamp(String fecha) {
