@@ -244,3 +244,13 @@ function ejecutar_funcion_enter(elemento, funcion) {
         }
     });
 }
+
+function habilitar_agregar() {
+    $("#boton_agregar").prop("disabled", false);
+    $("#boton_modificar").prop("disabled", true);
+}
+
+function deshabilitar_agregar() {
+    $("#boton_agregar").prop("disabled", true);
+    $("#boton_modificar").prop("disabled", false);
+}
