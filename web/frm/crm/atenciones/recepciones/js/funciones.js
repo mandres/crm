@@ -42,7 +42,6 @@ function inicializar_formulario() {
         $('aside').html("");
     });
     buscar_ciudad_por_nombre();
-    combo_seccion_ajax();
 }
 
 //Inicializar cargar datos secciones en combo
@@ -57,7 +56,7 @@ function combo_seccion_ajax() {
     ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
 }
 
-function combo_seccion_ajax_success(json){
+function combo_seccion_ajax_success(json) {
     $("#id_seccion").html(json.combo);
 }
 
@@ -157,6 +156,7 @@ function seleccionar_cliente($this) {
     var id_cliente = $($this).find('td').eq(0).text();
     buscar_idcliente_ajax(id_cliente);
     $('.nav-pills li:eq(1) a').tab('show');
+    combo_seccion_ajax();
     deshabilitar_agregar();
 }
 
@@ -280,13 +280,13 @@ function buscar_vendedor_success(json) {
 // Habilitar y Desabilitar Botones
 
 function habilitar_agregar() {
-    $("#botonAgregar").prop("disabled", false);
-    $("#botonModificar").prop("disabled", true);
+    $("#botonAgregar").removeClass('disabled');
+    $("#botonModificar").addClass('disabled');
 }
 
 function deshabilitar_agregar() {
-    $("#botonAgregar").prop("disabled", true);
-    $("#botonModificar").prop("disabled", false);
+    $("#botonAgregar").addClass('disabled');
+    $("#botonModificar").removeClass('disabled');
 }
 
 // ATENCION

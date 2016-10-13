@@ -19,8 +19,8 @@ public class SeccionDAO {
                         int id = rs.getInt("id_seccion");
                         String descripcion = rs.getString("nombre_seccion");
                         combo += "<option value='" + id + "'>" + descripcion + "</option>";
-                        ps.close();
                     }
+                    ps.close();
                 }
             } catch (SQLException ex) {
                 System.out.println("--> " + ex.getLocalizedMessage());
