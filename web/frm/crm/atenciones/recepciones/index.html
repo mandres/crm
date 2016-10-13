@@ -56,116 +56,128 @@
             <div class="panel-body">
                 <form id="formPrograma">
                     <div class="row">
-                        <div class="col-md-1">
-                            <label class="form-control-static" for="id_cliente">Id</label>
-                        </div>
-                        <div class="col-md-2">
-                            <input id="id_cliente" name="id_cliente" type="text" class="form-control input-sm" placeholder="Id Cliente" readonly="readonly">
-                        </div>
-                        <div class="col-md-9">
-                        </div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#ticket" aria-controls="ticket" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-open-file" aria-hidden="true"></span> Ticket</a></li>
+                            <li role="presentation"><a href="#fichacliente" aria-controls="fichacliente" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-indent-left" aria-hidden="true"></span> Ficha Cliente</a></li>
+                        </ul>
                     </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="form-control-static" for="codigo_cliente">Código</label>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="ticket">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="form-control-static" for="id_cliente">Id</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="id_cliente" name="id_cliente" type="text" class="form-control input-sm" placeholder="Id Cliente" readonly="readonly">
+                                </div>
+                                <div class="col-md-9">
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-2">
-                            <input id="codigo_cliente" name="codigo_cliente" type="text" class="form-control input-sm" placeholder="Código Cliente" readonly="readonly">
-                        </div>
-                        <div class="col-md-9">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="form-control-static" for="cedula_cliente">Cédula</label>
-                        </div>
-                        <div class="col-md-2">
-                            <input id="cedula_cliente" name="cedula_cliente" type="text" class="form-control input-sm" placeholder="Cédula Cliente">
-                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="fichacliente">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="form-control-static" for="codigo_cliente">Código</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="codigo_cliente" name="codigo_cliente" type="text" class="form-control input-sm" placeholder="Código Cliente" readonly="readonly">
+                                </div>
+                                <div class="col-md-9">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="form-control-static" for="cedula_cliente">Cédula</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="cedula_cliente" name="cedula_cliente" type="text" class="form-control input-sm" placeholder="Cédula Cliente">
+                                </div>
 
-                        <div class="col-md-9">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="form-control-static" for="ruc_cliente">RUC</label>
-                        </div>
-                        <div class="col-md-2">
-                            <input id="ruc_cliente" name="ruc_cliente" type="text" class="form-control input-sm" placeholder="RUC Cliente">
-                        </div>
-                        <div class="col-md-10">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="form-control-static" for="nombre_cliente">Nombre</label>
-                        </div>
-                        <div class="col-md-11">
-                            <input id="nombre_cliente" name="nombre_cliente" type="text" class="form-control input-sm" placeholder="Nombre del Cliente">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="form-control-static" for="direccion_cliente">Dirección</label>
-                        </div>
-                        <div class="col-md-11">
-                            <input id="direccion_cliente" name="direccion_cliente" type="text" class="form-control input-sm" placeholder="Dirección del Cliente">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="form-control-static" for="id_ciudad">Ciudad</label>
-                        </div>
-                        <div class="col-md-11">
-                            <select id="id_ciudad" name="id_ciudad" class="form-control input-sm">
+                                <div class="col-md-9">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="form-control-static" for="ruc_cliente">RUC</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="ruc_cliente" name="ruc_cliente" type="text" class="form-control input-sm" placeholder="RUC Cliente">
+                                </div>
+                                <div class="col-md-10">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="form-control-static" for="nombre_cliente">Nombre</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="nombre_cliente" name="nombre_cliente" type="text" class="form-control input-sm" placeholder="Nombre del Cliente">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="form-control-static" for="direccion_cliente">Dirección</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="direccion_cliente" name="direccion_cliente" type="text" class="form-control input-sm" placeholder="Dirección del Cliente">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="form-control-static" for="id_ciudad">Ciudad</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <select id="id_ciudad" name="id_ciudad" class="form-control input-sm">
 
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="form-control-static" for="fecha_nacimiento_cliente">Nacimiento</label>
-                        </div>
-                        <div class="col-md-2">
-                            <div class='input-group' id='datetimepicker_fecha_nacimiento_cliente'>
-                                <input id="fecha_nacimiento_cliente" name="fecha_nacimiento_cliente" type='text' class="form-control" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="form-control-static" for="fecha_nacimiento_cliente">Nacimiento</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class='input-group' id='datetimepicker_fecha_nacimiento_cliente'>
+                                        <input id="fecha_nacimiento_cliente" name="fecha_nacimiento_cliente" type='text' class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="form-control-static" for="email_cliente">E-mail</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="mail_cliente" name="mail_cliente" type="text" class="form-control input-sm" placeholder="E-mail del Cliente">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="form-control-static" for="telefono_cliente">Teléfono</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="telefono_cliente" name="telefono_cliente" type="text" class="form-control input-sm" placeholder="Teléfono del Cliente">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="form-control-static" for="contacto_cliente">Contacto</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="contacto_cliente" name="contacto_cliente" type="text" class="form-control input-sm" placeholder="Contacto del Cliente">
+                                </div>
+                            </div>
+                            <div class="panel-footer centrado">
+                                <button id="botonAgregar" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+                                <button id="botonModificar" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</button>
+                                <button id="botonAtender" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Atender</button>
+                                <button id="botonSalir" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir</button>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="form-control-static" for="email_cliente">E-mail</label>
-                        </div>
-                        <div class="col-md-11">
-                            <input id="mail_cliente" name="mail_cliente" type="text" class="form-control input-sm" placeholder="E-mail del Cliente">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="form-control-static" for="telefono_cliente">Teléfono</label>
-                        </div>
-                        <div class="col-md-11">
-                            <input id="telefono_cliente" name="telefono_cliente" type="text" class="form-control input-sm" placeholder="Teléfono del Cliente">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="form-control-static" for="contacto_cliente">Contacto</label>
-                        </div>
-                        <div class="col-md-11">
-                            <input id="contacto_cliente" name="contacto_cliente" type="text" class="form-control input-sm" placeholder="Contacto del Cliente">
-                        </div>
-                    </div>
                 </form>
-            </div>
-            <div class="panel-footer centrado">
-                <button id="botonAgregar" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
-                <button id="botonModificar" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</button>
-                <button id="botonAtender" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Atender</button>
-                <button id="botonSalir" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir</button>
             </div>
         </div>
     </div>
