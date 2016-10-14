@@ -18,6 +18,7 @@ import org.json.simple.JSONObject;
 import py.com.quality.DAO.AtencionDAO;
 import py.com.quality.modelos.Atencion;
 import py.com.quality.modelos.Cliente;
+import py.com.quality.modelos.Seccion;
 import py.com.quality.modelos.Usuario;
 
 /**
@@ -42,6 +43,7 @@ public class AtencionAgregar extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
 
             int id_cliente = Integer.parseInt(request.getParameter("id_cliente"));
+            int id_seccion = Integer.parseInt(request.getParameter("id_seccion"));
 
             HttpSession sesion = request.getSession();
             Usuario usuarioLogueado = (Usuario) sesion.getAttribute("usuarioLogueado");
@@ -49,9 +51,14 @@ public class AtencionAgregar extends HttpServlet {
             Cliente cliente = new Cliente();
             cliente.setId_cliente(id_cliente);
             
+            Seccion seccion = new Seccion();
+            seccion.setId_seccion(id_seccion);
+            
             Atencion atencion = new Atencion();
             atencion.setUsuario(usuarioLogueado);
             atencion.setCliente(cliente);
+            atencion.setSeccion(seccion);
+            
 
             AtencionDAO atencionDAO = new AtencionDAO();
             Map agregado = atencionDAO.agregar(atencion);

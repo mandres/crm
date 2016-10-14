@@ -24,10 +24,11 @@ public class AtencionDAO {
         if (Conexion.conectar()) {
             try {
                 String sql = "insert into atenciones("
-                        + "id_usuario, fechahora_recepcion, id_estadoatencion, id_cliente) "
+                        + "id_usuario, fechahora_recepcion, id_estadoatencion, id_cliente, id_seccion) "
                         + "values(" + atencion.getUsuario().getId_usuario() + ", "
                         + " now(), "
-                        + "1, "+atencion.getCliente().getId_cliente()+")";
+                        + "1, "+atencion.getCliente().getId_cliente()+", "
+                        + ""+atencion.getSeccion().getId_seccion()+ ")";
 
                 Conexion.getSt().executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 

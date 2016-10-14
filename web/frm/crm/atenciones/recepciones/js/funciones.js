@@ -4,6 +4,9 @@
 function inicializar_formulario() {
     verificar_sesion_ajax();
     $("#cedula_cliente").focus();
+    combo_seccion_ajax();
+
+// Funciones de siguiente campo con enter
 
     siguiente_campo("#cedula_cliente", "#ruc_cliente", false);
     siguiente_campo("#ruc_cliente", "#nombre_cliente", false);
@@ -14,6 +17,7 @@ function inicializar_formulario() {
     siguiente_campo("#mail_cliente", "#telefono_cliente", false);
     siguiente_campo("#telefono_cliente", "#contacto_cliente", false);
 
+// Inicializar datetimepicker
     $('#fecha_nacimiento_cliente, #fecha_desde, #fecha_hasta').datetimepicker({
         startDate: new Date(),
         timepicker: false,
@@ -21,6 +25,7 @@ function inicializar_formulario() {
     });
     $.datetimepicker.setLocale('es');
 
+// Inicializar funciones de los botones
     $("#botonAgregar").on('click', function () {
         if (validar_ficha_cliente()) {
             agregar_cliente_ajax();
@@ -31,13 +36,29 @@ function inicializar_formulario() {
             modificar_cliente_ajax();
         }
     });
-    $("#botonAtender").on('click', function () {
+    $("#botonGenerarTicket").on('click', function () {
         atencion_agregar_ajax();
     });
     $("#botonSalir").on('click', function () {
         $('aside').html("");
     });
     buscar_ciudad_por_nombre();
+}
+
+//Inicializar cargar datos secciones en combo
+
+function combo_seccion_ajax() {
+    var pDatosFormulario = "";
+    var pUrl = 'seccion/generarLista';
+    var pBeforeSend = '';
+    var pSuccess = 'combo_seccion_ajax_success(json)';
+    var pError = 'ajax_error()';
+    var pComplete = '';
+    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
+}
+
+function combo_seccion_ajax_success(json) {
+    $("#id_seccion").html(json.combo);
 }
 
 // VALIDAR DATOS FORMULARIO
@@ -259,13 +280,13 @@ function buscar_vendedor_success(json) {
 // Habilitar y Desabilitar Botones
 
 function habilitar_agregar() {
-    $("#botonAgregar").prop("disabled", false);
-    $("#botonModificar").prop("disabled", true);
+    $("#botonAgregar").removeClass('disabled');
+    $("#botonModificar").addClass('disabled');
 }
 
 function deshabilitar_agregar() {
-    $("#botonAgregar").prop("disabled", true);
-    $("#botonModificar").prop("disabled", false);
+    $("#botonAgregar").addClass('disabled');
+    $("#botonModificar").removeClass('disabled');
 }
 
 // ATENCION

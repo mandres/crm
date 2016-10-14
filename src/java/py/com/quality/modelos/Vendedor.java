@@ -10,17 +10,19 @@ public class Vendedor {
     private EstadoAtencion estadoatencion;
     private Timestamp fecha_inicioatencion;
     private Timestamp fecha_finatencion;
+    private char online;
 
     public Vendedor() {
     }
 
-    public Vendedor(int id_vendedor, String nombre_vendedor, Seccion seccion, EstadoAtencion estadoatencion, Timestamp fecha_inicioatencion, Timestamp fecha_finatencion) {
+    public Vendedor(int id_vendedor, String nombre_vendedor, Seccion seccion, EstadoAtencion estadoatencion, Timestamp fecha_inicioatencion, Timestamp fecha_finatencion, char online) {
         this.id_vendedor = id_vendedor;
         this.nombre_vendedor = nombre_vendedor;
         this.seccion = seccion;
         this.estadoatencion = estadoatencion;
         this.fecha_inicioatencion = fecha_inicioatencion;
         this.fecha_finatencion = fecha_finatencion;
+        this.online = online;
     }
 
     public int getId_vendedor() {
@@ -70,6 +72,14 @@ public class Vendedor {
     public void setFecha_finatencion(Timestamp fecha_finatencion) {
         this.fecha_finatencion = fecha_finatencion;
     }
-    
-    
+
+    public char getOnline() {
+        return online;
+    }
+
+    public void setOnline(char online) {
+        this.online = online;
+    }
+
+        
 }
