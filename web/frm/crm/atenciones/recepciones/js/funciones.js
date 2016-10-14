@@ -4,6 +4,7 @@
 function inicializar_formulario() {
     verificar_sesion_ajax();
     $("#cedula_cliente").focus();
+    combo_seccion_ajax();
 
 // Funciones de siguiente campo con enter
 
@@ -35,7 +36,7 @@ function inicializar_formulario() {
             modificar_cliente_ajax();
         }
     });
-    $("#botonAtender").on('click', function () {
+    $("#botonGenerarTicket").on('click', function () {
         atencion_agregar_ajax();
     });
     $("#botonSalir").on('click', function () {
@@ -156,7 +157,6 @@ function seleccionar_cliente($this) {
     var id_cliente = $($this).find('td').eq(0).text();
     buscar_idcliente_ajax(id_cliente);
     $('.nav-pills li:eq(1) a').tab('show');
-    combo_seccion_ajax();
     deshabilitar_agregar();
 }
 

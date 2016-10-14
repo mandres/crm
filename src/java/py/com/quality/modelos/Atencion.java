@@ -13,11 +13,12 @@ public class Atencion {
     private Timestamp fechahora_finatencion;
     private EstadoAtencion estadoatencion;
     private Cliente cliente;
+    private Seccion seccion;
 
     public Atencion() {
     }
 
-    public Atencion(int id_atencion, String nombre_usuario, Usuario usuario, Vendedor vendedor, Timestamp fechahora_recepcion, Timestamp fechahora_inicioatencion, Timestamp fechahora_finatencion, EstadoAtencion estadoatencion, Cliente cliente) {
+    public Atencion(int id_atencion, String nombre_usuario, Usuario usuario, Vendedor vendedor, Timestamp fechahora_recepcion, Timestamp fechahora_inicioatencion, Timestamp fechahora_finatencion, EstadoAtencion estadoatencion, Cliente cliente, Seccion seccion) {
         this.id_atencion = id_atencion;
         this.nombre_usuario = nombre_usuario;
         this.usuario = usuario;
@@ -27,6 +28,7 @@ public class Atencion {
         this.fechahora_finatencion = fechahora_finatencion;
         this.estadoatencion = estadoatencion;
         this.cliente = cliente;
+        this.seccion = seccion;
     }
 
     public int getId_atencion() {
@@ -100,22 +102,14 @@ public class Atencion {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
 
-    public JSONObject getJSONObject() {
-        JSONObject obj = new JSONObject();
-        obj.put("id_atencion", this.id_atencion);
-        obj.put("id_usuario", this.getUsuario().getId_usuario());
-        obj.put("nombre_usuario", this.getUsuario().getNombre_usuario());
-        obj.put("id_vendedor", this.getVendedor().getId_vendedor());
-        obj.put("nombre_vendedor", this.getVendedor().getNombre_vendedor());
-        obj.put("fechahora_recepcion", this.getFechahora_recepcion());
-        obj.put("fechahora_inicioatencion", this.getFechahora_inicioatencion());
-        obj.put("fechahora_finatencion", this.getFechahora_finatencion());
-        obj.put("id_estadoatencion", this.getEstadoatencion().getId_estadoatencion());
-        obj.put("descripcion_estadoatencion", this.getEstadoatencion().getDescripcion_estadoatencion());
-        obj.put("id_cliente", this.getCliente().getId_cliente());
-        obj.put("nombre_cliente", this.getCliente().getNombre_cliente());
-        return obj;
+    public Seccion getSeccion() {
+        return seccion;
     }
+
+    public void setSeccion(Seccion seccion) {
+        this.seccion = seccion;
+    }
+
+    
 }
