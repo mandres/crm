@@ -309,9 +309,25 @@ function atencion_agregar_ajax() {
 
 function atencion_agregar_ajax_success(json) {
     if (json.agregado) {
-        mostrar_mensaje('Mensaje del Sistema', 'AGREGADO: Fue Generado el Tiket N: ' + json.id_atencion, 'Aceptar', '');
+        mostrar_mensaje('Mensaje del Sistema', 'AGREGADO: Fue Generado el Tiket N: ' + json.id_atencion, 'Aceptar', 'listar_atencion_ajax()');
     } else {
         mostrar_mensaje('Mensaje del Sistema', 'Error:' + json.mensaje, 'Aceptar', '');
     }
 }
+
+function listar_atencion_ajax() {
+    var pDatosFormulario = "";
+    var pUrl = 'atencion/listar';
+    var pBeforeSend = '';
+    var pSuccess = 'listar_atencion_ajax_success(json)';
+    var pError = 'ajax_error()';
+    var pComplete = '';
+    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
+}
+
+function listar_atencion_ajax_success(json){
+    $("#tbody-atencion").html(json.tabla);
+    $('.nav-pills li:eq(2) a').tab('show');
+}
+
 
