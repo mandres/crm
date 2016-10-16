@@ -7,6 +7,7 @@ package py.com.quality.contoladores;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,12 +36,19 @@ public class AtencionListar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {        
-
+            
+            int id_estadoatencion = Integer.parseInt(request.getParameter("id_estadoatencion"));
+            
             AtencionDAO atencionDAO = new AtencionDAO();
-            String tabla = atencionDAO.listar();
+            Map valor = atencionDAO.listar(id_estadoatencion);
 
             JSONObject obj = new JSONObject();
-            obj.put("tabla", tabla);
+            obj.put("tabla", valor.get("tabla"));
+            obj.put("pendiente", valor.get("pendiente"));
+            obj.put("asignado", valor.get("asignado"));
+            obj.put("atendiendo", valor.get("atendiendo"));
+            obj.put("cerrado", valor.get("cerrado"));
+            obj.put("todos", valor.get("todos"));
             out.print(obj);
             out.flush();
         }

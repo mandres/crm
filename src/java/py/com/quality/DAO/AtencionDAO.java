@@ -4,14 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import py.com.quality.modelos.Atencion;
-import py.com.quality.modelos.Cliente;
-import py.com.quality.modelos.EstadoAtencion;
-import py.com.quality.modelos.Usuario;
-import py.com.quality.modelos.Vendedor;
 import py.com.quality.utiles.Conexion;
 
 public class AtencionDAO {
@@ -58,8 +53,18 @@ public class AtencionDAO {
         return valor;
     }
 
-    public String listar() {
-        String datos = "";
+    public Map listar(int filtroid_estadoatencion) {
+        Map valor = new HashMap();
+        String tabla = "";
+        String where = "";
+        int todos = 0;
+        int pendiente = 0;
+        int asignado = 0;
+        int atendiendo = 0;
+        int cerrado = 0;
+        if (filtroid_estadoatencion != 0) {
+            where = "where a.id_estadoatencion=" + filtroid_estadoatencion;
+        }
 
         if (Conexion.conectar()) {
             try {
@@ -78,7 +83,10 @@ public class AtencionDAO {
                         + "	on (a.id_vendedor = v.id_vendedor) left join estado_atenciones e "
                         + "	on (a.id_estadoatencion = e.id_estadoatencion) left join clientes c "
                         + "	on (a.id_cliente = c.id_cliente) left join secciones s "
-                        + "	on (a.id_seccion = s.id_seccion) ";
+                        + "	on (a.id_seccion = s.id_seccion) "
+                        + " " + where
+                        + " order by"
+                        + "     1 desc";
                 try (PreparedStatement ps = Conexion.getCon().prepareStatement(sql)) {
 
                     ResultSet rs = ps.executeQuery();
@@ -94,15 +102,20 @@ public class AtencionDAO {
                         String color = "";
                         if (id_estadoatencion == 1) {
                             color = "#ffcdd2";
+                            ++pendiente;
                         } else if (id_estadoatencion == 2) {
                             color = "#80cbc4";
+                            ++asignado;
                         } else if (id_estadoatencion == 3) {
                             color = "#81c784";
+                            ++atendiendo;
                         } else if (id_estadoatencion == 4) {
                             color = "#00e676";
+                            ++cerrado;
                         }
+                        ++todos;
 
-                        datos += "<tr onclick='seleccionarIdatencion($(this))' style='color:'"+color+"''>"
+                        tabla += "<tr onclick='seleccionarIdatencion($(this))' style='background-color:" + color + "'>"
                                 + "     <td>" + id_atencion + "</td>"
                                 + "     <td>" + id_cliente + "</td>"
                                 + "     <td>" + nombre_cliente + "</td>"
@@ -111,9 +124,15 @@ public class AtencionDAO {
                                 + "     <td>" + descripcion_estadoatencion + "</td>"
                                 + "</tr>";
                     }
-                    if (datos.equals("")) {
-                        datos = "<tr><td  colspan=6>No existen registros ...</td></tr>";
+                    if (tabla.equals("")) {
+                        tabla = "<tr><td  colspan=6>No existen registros ...</td></tr>";
                     }
+                    valor.put("tabla", tabla);
+                    valor.put("pendiente", pendiente);
+                    valor.put("asignado", asignado);
+                    valor.put("atendiendo", atendiendo);
+                    valor.put("cerrado", cerrado);
+                    valor.put("todos", todos);
                     ps.close();
                 }
             } catch (SQLException ex) {
@@ -121,7 +140,7 @@ public class AtencionDAO {
             }
         }
         Conexion.cerrar();
-        return datos;
+        return valor;
     }
 
 }
