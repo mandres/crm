@@ -26,6 +26,7 @@ function inicializar_formulario() {
     $.datetimepicker.setLocale('es');
 
 // Inicializar funciones de los botones
+
     $("#botonAgregar").on('click', function () {
         if (validar_ficha_cliente()) {
             agregar_cliente_ajax();
@@ -37,12 +38,23 @@ function inicializar_formulario() {
         }
     });
     $("#botonGenerarTicket").on('click', function () {
-        atencion_agregar_ajax();
+        var id_cliente = $("#id_cliente").val();
+        if (id_cliente === "") {
+            mostrar_mensaje('Mensaje del Sistema', 'Para Generar un Ticked, primero debe seleccionar un cliente', 'Aceptar', '');
+        } else {
+            atencion_agregar_ajax();
+        }
     });
     $("#botonSalir").on('click', function () {
         $('aside').html("");
     });
     buscar_ciudad_por_nombre();
+
+    // botones estado atencion
+    $("#botones-estadosAtencion").on('click','button', function () {
+        listar_atencion_ajax($(this).attr('id'));
+    });
+
 }
 
 //Inicializar cargar datos secciones en combo
@@ -156,6 +168,12 @@ function buscar_cliente_success(json) {
 function seleccionar_cliente($this) {
     var id_cliente = $($this).find('td').eq(0).text();
     buscar_idcliente_ajax(id_cliente);
+    var id_atencion = $("#id_atencion").val();
+    if (id_atencion === "") {
+        habilitar_generarTicket();
+    } else {
+        desabilitar_generarTicket();
+    }
     $('.nav-pills li:eq(1) a').tab('show');
     deshabilitar_agregar();
 }
@@ -248,47 +266,6 @@ function modificar_cliente_ajax_success(json) {
     }
 }
 
-function buscar_vendedor() {
-    var pDatosFormulario = '';
-    var pUrl = 'usuario/buscar/vendedor';
-    var pBeforeSend = '';
-    var pSuccess = 'buscar_vendedor_success(json)';
-    var pError = 'ajax_error()';
-    var pComplete = '';
-    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
-}
-
-function buscar_vendedor_success(json) {
-    var datos = "";
-    $.each(json, function (key, value) {
-        datos += "<tr>";
-        datos += "<td>" + value.id_usuario + "</td>";
-        datos += "<td>" + value.nombre_usuario + "</td>";
-        datos += "<td>" + value.id_seccion + "</td>";
-        datos += "<td>" + value.nombre_seccion + "</td>";
-        datos += "<td>" + value.asignado_usuario + "</td>";
-        datos += "<td>" + value.atendido_usuario + "</td>";
-        datos += "<td>" + value.liberado_usuario + "</td>";
-        datos += "<td class='centrado'>" + value.estado_usuario + "</td>";
-        datos += "<td class='centrado'><button class='btn btn-primary btn-xs'>Asignar</button></td>";
-        datos += "</tr>";
-    });
-    console.log("--> " + datos);
-    $('#tbody-vendedores').html(datos);
-}
-
-// Habilitar y Desabilitar Botones
-
-function habilitar_agregar() {
-    $("#botonAgregar").removeClass('disabled');
-    $("#botonModificar").addClass('disabled');
-}
-
-function deshabilitar_agregar() {
-    $("#botonAgregar").addClass('disabled');
-    $("#botonModificar").removeClass('disabled');
-}
-
 // ATENCION
 
 function atencion_agregar_ajax() {
@@ -303,9 +280,49 @@ function atencion_agregar_ajax() {
 
 function atencion_agregar_ajax_success(json) {
     if (json.agregado) {
-        mostrar_mensaje('Mensaje del Sistema', 'AGREGADO: Fue Generado el Tiket N: ' + json.id_atencion, 'Aceptar', '');
+        mostrar_mensaje('Mensaje del Sistema', 'AGREGADO: Fue Generado el Tiket N: ' + json.id_atencion, 'Aceptar', 'listar_atencion_ajax()');
     } else {
         mostrar_mensaje('Mensaje del Sistema', 'Error:' + json.mensaje, 'Aceptar', '');
     }
 }
 
+function listar_atencion_ajax(id_estadoatencion) {
+    var pDatosFormulario = "&id_estadoatencion="+id_estadoatencion;
+    var pUrl = 'atencion/listar';
+    var pBeforeSend = '';
+    var pSuccess = 'listar_atencion_ajax_success(json)';
+    var pError = 'ajax_error()';
+    var pComplete = '';
+    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
+}
+
+function listar_atencion_ajax_success(json) {
+    $("#tbody-atencion").html(json.tabla);
+    $("#botones-estadosAtencion").children("#0").children('span').html(json.todos);
+    $("#botones-estadosAtencion").children("#1").children('span').html(json.pendiente);
+    $("#botones-estadosAtencion").children("#2").children('span').html(json.asignado);
+    $("#botones-estadosAtencion").children("#3").children('span').html(json.atendiendo);
+    $("#botones-estadosAtencion").children("#4").children('span').html(json.cerrado);
+    $('.nav-pills li:eq(2) a').tab('show');
+    desabilitar_generarTicket();
+}
+
+// Habilitar y Desabilitar Botones
+
+function habilitar_agregar() {
+    $("#botonAgregar").removeClass('disabled');
+    $("#botonModificar").addClass('disabled');
+}
+
+function deshabilitar_agregar() {
+    $("#botonAgregar").addClass('disabled');
+    $("#botonModificar").removeClass('disabled');
+}
+
+function habilitar_generarTicket() {
+    $("#botonGenerarTicket").removeClass('disabled');
+}
+
+function desabilitar_generarTicket() {
+    $("#botonGenerarTicket").addClass('disabled');
+}

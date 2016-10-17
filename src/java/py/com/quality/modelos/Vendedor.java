@@ -7,22 +7,20 @@ public class Vendedor {
     private int id_vendedor;
     private String nombre_vendedor;
     private Seccion seccion;
-    private EstadoAtencion estadoatencion;
     private Timestamp fecha_inicioatencion;
     private Timestamp fecha_finatencion;
-    private char online;
+    private EstadoVendedor estadovendedor;
 
     public Vendedor() {
     }
 
-    public Vendedor(int id_vendedor, String nombre_vendedor, Seccion seccion, EstadoAtencion estadoatencion, Timestamp fecha_inicioatencion, Timestamp fecha_finatencion, char online) {
+    public Vendedor(int id_vendedor, String nombre_vendedor, Seccion seccion, Timestamp fecha_inicioatencion, Timestamp fecha_finatencion, EstadoVendedor estadovendedor) {
         this.id_vendedor = id_vendedor;
         this.nombre_vendedor = nombre_vendedor;
         this.seccion = seccion;
-        this.estadoatencion = estadoatencion;
         this.fecha_inicioatencion = fecha_inicioatencion;
         this.fecha_finatencion = fecha_finatencion;
-        this.online = online;
+        this.estadovendedor = estadovendedor;
     }
 
     public int getId_vendedor() {
@@ -49,14 +47,6 @@ public class Vendedor {
         this.seccion = seccion;
     }
 
-    public EstadoAtencion getEstadoatencion() {
-        return estadoatencion;
-    }
-
-    public void setEstadoatencion(EstadoAtencion estadoatencion) {
-        this.estadoatencion = estadoatencion;
-    }
-
     public Timestamp getFecha_inicioatencion() {
         return fecha_inicioatencion;
     }
@@ -73,13 +63,13 @@ public class Vendedor {
         this.fecha_finatencion = fecha_finatencion;
     }
 
-    public char getOnline() {
-        return online;
+    public EstadoVendedor getEstadovendedor() {
+        return estadovendedor;
     }
 
-    public void setOnline(char online) {
-        this.online = online;
+    public void setEstadovendedor(EstadoVendedor estadovendedor) {
+        this.estadovendedor = estadovendedor;
     }
 
-        
+   
 }
