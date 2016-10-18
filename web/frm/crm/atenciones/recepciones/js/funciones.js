@@ -322,7 +322,7 @@ function seleccionarIdatencion() {
 }
 
 function buscarIdatencion(id_atencion) {
-    var pDatosFormulario = "&id_atencion="+id_atencion;
+    var pDatosFormulario = "&id_atencion=" + id_atencion;
     var pUrl = 'atencion/buscarId';
     var pBeforeSend = '';
     var pSuccess = 'atencion_buscarId_ajax_success(json)';
@@ -331,7 +331,7 @@ function buscarIdatencion(id_atencion) {
     ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
 }
 
-function atencion_buscarId_ajax_success(json){
+function atencion_buscarId_ajax_success(json) {
     $("#id_vendedor").val(json.id_vendedor);
     $("#nombre_vendedor").val(json.nombre_vendedor);
     $("#fechahora_recepcion").val(json.fechahora_recepcion);

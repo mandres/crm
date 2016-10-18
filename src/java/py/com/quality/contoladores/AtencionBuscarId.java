@@ -37,12 +37,12 @@ public class AtencionBuscarId extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
-            int id_atencion = Integer.parseInt(request.getParameter("id_atencion"));      
+            int id_atencion = Integer.parseInt(request.getParameter("id_atencion"));
 
             AtencionDAO atencionDAO = new AtencionDAO();
-            
-            Atencion atencion = atencionDAO.buscarId(id_atencion);
 
+            Atencion atencion = atencionDAO.buscarId(id_atencion);
+           
             JSONObject obj = new JSONObject();
             obj.put("id_atencion", atencion.getId_atencion());
             obj.put("id_vendedor", atencion.getVendedor().getId_vendedor());
