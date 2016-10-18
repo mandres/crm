@@ -20,7 +20,7 @@ import py.com.quality.modelos.Atencion;
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-@WebServlet(name = "AtencionBuscarId", urlPatterns = {"/atencion/buscarId"})
+@WebServlet(name = "AtencionBuscarId", urlPatterns = {"/atencion/buscarId11111"})
 public class AtencionBuscarId extends HttpServlet {
 
     /**

@@ -323,7 +323,7 @@ function seleccionarIdatencion() {
 
 function buscarIdatencion(id_atencion) {
     var pDatosFormulario = "&id_atencion=" + id_atencion;
-    var pUrl = 'atencion/buscarId';
+    var pUrl = 'atencion/buscarId11111';
     var pBeforeSend = '';
     var pSuccess = 'atencion_buscarId_ajax_success(json)';
     var pError = 'ajax_error()';
