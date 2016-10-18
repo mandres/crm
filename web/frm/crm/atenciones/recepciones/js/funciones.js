@@ -310,6 +310,9 @@ function listar_atencion_ajax_success(json) {
 
 function seleccionarIdatencion() {
     $("#tbody-atencion tr").on('click', function () {
+        $("#tbody-atencion tr").each(function () {
+            $('#td-linea').remove();
+        });
         $(this).after("<tr><td id='td-linea' colspan='6'></td></tr>");
         $("#td-linea").load("frm/crm/atenciones/recepciones/linea.html", function () {
 
