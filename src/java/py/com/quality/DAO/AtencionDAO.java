@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import py.com.quality.modelos.Atencion;
+import py.com.quality.modelos.Vendedor;
 import py.com.quality.utiles.Conexion;
 
 public class AtencionDAO {
@@ -141,6 +142,51 @@ public class AtencionDAO {
         }
         Conexion.cerrar();
         return valor;
+    }
+
+    public Atencion buscarId(int id_atencion) {
+        Atencion atencion = new Atencion();
+        if (Conexion.conectar()) {
+            try {
+                String sql = "select "
+                        + "	a.id_atencion, "
+                        + "	a.id_vendedor, "
+                        + "	v.nombre_vendedor, "
+                        + "	a.fechahora_recepcion, "
+                        + "	a.fechahora_asignacion, "
+                        + "	a.fechahora_inicioatencion, "
+                        + "	a.fechahora_finatencion "
+                        + "from "
+                        + "	atenciones a left join vendedores v "
+                        + "	on (a.id_vendedor = v.id_vendedor) "
+                        + "where"
+                        + "     a.id_atencion=?";
+                try (PreparedStatement ps = Conexion.getCon().prepareStatement(sql)) {
+                    ps.setInt(1, id_atencion);
+
+                    ResultSet rs = ps.executeQuery();
+                    if (rs.next()) {
+                        atencion.setId_atencion(rs.getInt("id_atencion"));
+                        
+                        Vendedor vendedor = new Vendedor();
+                        vendedor.setId_vendedor(rs.getInt("id_vendedor"));
+                        vendedor.setNombre_vendedor(rs.getString("nombre_vendedor"));
+                        
+                        atencion.setVendedor(vendedor);
+                        atencion.setFechahora_recepcion(rs.getTimestamp("fechahora_recepcion"));
+                        atencion.setFechahora_asignacion(rs.getTimestamp("fechahora_asignacion"));
+                        atencion.setFechahora_inicioatencion(rs.getTimestamp("fechahora_inicioatencion"));
+                        atencion.setFechahora_finatencion(rs.getTimestamp("fechahora_finatencion"));
+
+                    }
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("--> " + ex.getLocalizedMessage());
+            }
+        }
+        Conexion.cerrar();
+        return atencion;
     }
 
 }

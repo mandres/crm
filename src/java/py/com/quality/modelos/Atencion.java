@@ -1,7 +1,6 @@
 package py.com.quality.modelos;
 
 import java.sql.Timestamp;
-import org.json.simple.JSONObject;
 
 public class Atencion {
     private int id_atencion;
@@ -9,6 +8,7 @@ public class Atencion {
     private Usuario usuario;
     private Vendedor vendedor;
     private Timestamp fechahora_recepcion;
+    private Timestamp fechahora_asignacion;
     private Timestamp fechahora_inicioatencion;
     private Timestamp fechahora_finatencion;
     private EstadoAtencion estadoatencion;
@@ -18,12 +18,13 @@ public class Atencion {
     public Atencion() {
     }
 
-    public Atencion(int id_atencion, String nombre_usuario, Usuario usuario, Vendedor vendedor, Timestamp fechahora_recepcion, Timestamp fechahora_inicioatencion, Timestamp fechahora_finatencion, EstadoAtencion estadoatencion, Cliente cliente, Seccion seccion) {
+    public Atencion(int id_atencion, String nombre_usuario, Usuario usuario, Vendedor vendedor, Timestamp fechahora_recepcion, Timestamp fechahora_asignacion, Timestamp fechahora_inicioatencion, Timestamp fechahora_finatencion, EstadoAtencion estadoatencion, Cliente cliente, Seccion seccion) {
         this.id_atencion = id_atencion;
         this.nombre_usuario = nombre_usuario;
         this.usuario = usuario;
         this.vendedor = vendedor;
         this.fechahora_recepcion = fechahora_recepcion;
+        this.fechahora_asignacion = fechahora_asignacion;
         this.fechahora_inicioatencion = fechahora_inicioatencion;
         this.fechahora_finatencion = fechahora_finatencion;
         this.estadoatencion = estadoatencion;
@@ -69,6 +70,14 @@ public class Atencion {
 
     public void setFechahora_recepcion(Timestamp fechahora_recepcion) {
         this.fechahora_recepcion = fechahora_recepcion;
+    }
+
+    public Timestamp getFechahora_asignacion() {
+        return fechahora_asignacion;
+    }
+
+    public void setFechahora_asignacion(Timestamp fechahora_asignacion) {
+        this.fechahora_asignacion = fechahora_asignacion;
     }
 
     public Timestamp getFechahora_inicioatencion() {

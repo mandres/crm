@@ -310,15 +310,34 @@ function listar_atencion_ajax_success(json) {
 
 function seleccionarIdatencion() {
     $("#tbody-atencion tr").on('click', function () {
+        var id_atencion = $(this).find('td').eq(0).html();
         $("#tbody-atencion tr").each(function () {
             $('#td-linea').remove();
         });
         $(this).after("<tr><td id='td-linea' colspan='6'></td></tr>");
         $("#td-linea").load("frm/crm/atenciones/recepciones/linea.html", function () {
-
+            buscarIdatencion(id_atencion);
         });
     });
+}
 
+function buscarIdatencion(id_atencion) {
+    var pDatosFormulario = "&id_atencion="+id_atencion;
+    var pUrl = 'atencion/buscarId';
+    var pBeforeSend = '';
+    var pSuccess = 'atencion_buscarId_ajax_success(json)';
+    var pError = 'ajax_error()';
+    var pComplete = '';
+    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
+}
+
+function atencion_buscarId_ajax_success(json){
+    $("#id_vendedor").val(json.id_vendedor);
+    $("#nombre_vendedor").val(json.nombre_vendedor);
+    $("#fechahora_recepcion").val(json.fechahora_recepcion);
+    $("#fechahora_asignado").val(json.fechahora_asignado);
+    $("#fechahora_inicioatencion").val(json.fechahora_inicioatencion);
+    $("#fechahora_finatencion").val(json.fechahora_finatencion);
 }
 
 // Habilitar y Desabilitar Botones
