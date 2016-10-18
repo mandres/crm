@@ -15,12 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import py.com.quality.DAO.AtencionDAO;
 import py.com.quality.modelos.Atencion;
+import py.com.quality.utiles.Util;
 
 /**
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-@WebServlet(name = "AtencionBuscarId", urlPatterns = {"/atencion/buscarId11111"})
+@WebServlet(name = "AtencionBuscarId", urlPatterns = {"/atencion/buscarId"})
 public class AtencionBuscarId extends HttpServlet {
 
     /**
@@ -47,10 +48,10 @@ public class AtencionBuscarId extends HttpServlet {
             obj.put("id_atencion", atencion.getId_atencion());
             obj.put("id_vendedor", atencion.getVendedor().getId_vendedor());
             obj.put("nombre_vendedor", atencion.getVendedor().getNombre_vendedor());
-            obj.put("fechahora_recepcion", atencion.getFechahora_recepcion());
-            obj.put("fechahora_asignacion", atencion.getFechahora_asignacion());
-            obj.put("fechahora_inicioatencion", atencion.getFechahora_inicioatencion());
-            obj.put("fechahora_finatencion", atencion.getFechahora_finatencion());
+            obj.put("fechahora_recepcion", Util.sqlTimestampToString(atencion.getFechahora_recepcion()));
+            obj.put("fechahora_asignado", Util.sqlTimestampToString(atencion.getFechahora_asignacion()));
+            obj.put("fechahora_inicioatencion", Util.sqlTimestampToString(atencion.getFechahora_inicioatencion()));
+            obj.put("fechahora_finatencion", Util.sqlTimestampToString(atencion.getFechahora_finatencion()));
 
             out.print(obj);
             out.flush();
