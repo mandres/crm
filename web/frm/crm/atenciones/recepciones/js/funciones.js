@@ -305,14 +305,19 @@ function listar_atencion_ajax_success(json) {
     $("#botones-estadosAtencion").children("#4").children('span').html(json.cerrado);
     $('.nav-pills li:eq(2) a').tab('show');
     desabilitar_generarTicket();
+    prueba();
 }
 
-function agregar_linea() {
-    $("#tbodyDetalle").prepend("<tr><td id='td-linea' colspan='4'></td></tr>");
-    $("#td-linea").load("frm/crm/definiciones/usuarios/linea.html", function () {
-        $("#id_usuariorol").val('0');
-        $("#id_rol").focus();
-        $("#id_rol").select();
+function prueba() {
+    $("#tbody-atencion tr").on('click', function () {
+        alert("llamo");
+    });
+}
+
+function seleccionarIdatencion($this) {
+    $this.prepend("<tr><td id='td-linea' colspan='4'></td></tr>");
+    $("#td-linea").load("frm/crm/atenciones/recepciones/linea.html", function () {
+
     });
 }
 
