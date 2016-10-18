@@ -115,7 +115,7 @@ public class AtencionDAO {
                         }
                         ++todos;
 
-                        tabla += "<tr onclick='seleccionarIdatencion($(this))' style='background-color:" + color + "'>"
+                        tabla += "<tr style='background-color:" + color + "'>"
                                 + "     <td>" + id_atencion + "</td>"
                                 + "     <td>" + id_cliente + "</td>"
                                 + "     <td>" + nombre_cliente + "</td>"

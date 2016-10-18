@@ -305,20 +305,17 @@ function listar_atencion_ajax_success(json) {
     $("#botones-estadosAtencion").children("#4").children('span').html(json.cerrado);
     $('.nav-pills li:eq(2) a').tab('show');
     desabilitar_generarTicket();
-    prueba();
+    seleccionarIdatencion();
 }
 
-function prueba() {
+function seleccionarIdatencion() {
     $("#tbody-atencion tr").on('click', function () {
-        alert("llamo");
-    });
-}
+        $(this).after("<tr><td id='td-linea' colspan='6'></td></tr>");
+        $("#td-linea").load("frm/crm/atenciones/recepciones/linea.html", function () {
 
-function seleccionarIdatencion($this) {
-    $this.prepend("<tr><td id='td-linea' colspan='4'></td></tr>");
-    $("#td-linea").load("frm/crm/atenciones/recepciones/linea.html", function () {
-
+        });
     });
+
 }
 
 // Habilitar y Desabilitar Botones
