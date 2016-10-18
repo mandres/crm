@@ -51,7 +51,7 @@ function inicializar_formulario() {
     buscar_ciudad_por_nombre();
 
     // botones estado atencion
-    $("#botones-estadosAtencion").on('click','button', function () {
+    $("#botones-estadosAtencion").on('click', 'button', function () {
         listar_atencion_ajax($(this).attr('id'));
     });
 
@@ -287,7 +287,7 @@ function atencion_agregar_ajax_success(json) {
 }
 
 function listar_atencion_ajax(id_estadoatencion) {
-    var pDatosFormulario = "&id_estadoatencion="+id_estadoatencion;
+    var pDatosFormulario = "&id_estadoatencion=" + id_estadoatencion;
     var pUrl = 'atencion/listar';
     var pBeforeSend = '';
     var pSuccess = 'listar_atencion_ajax_success(json)';
@@ -305,6 +305,17 @@ function listar_atencion_ajax_success(json) {
     $("#botones-estadosAtencion").children("#4").children('span').html(json.cerrado);
     $('.nav-pills li:eq(2) a').tab('show');
     desabilitar_generarTicket();
+    seleccionarIdatencion();
+}
+
+function seleccionarIdatencion() {
+    $("#tbody-atencion tr").on('click', function () {
+        $(this).after("<tr><td id='td-linea' colspan='6'></td></tr>");
+        $("#td-linea").load("frm/crm/atenciones/recepciones/linea.html", function () {
+
+        });
+    });
+
 }
 
 // Habilitar y Desabilitar Botones

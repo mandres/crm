@@ -1,0 +1,33 @@
+<div id="panel-linea" class="panel panel-default">
+    <div class="panel-body">
+        <form id="form-linea">
+            <div class="row">
+                <div class="form-group">
+                    <label for="id_vendedor" class="col-sm-2 control-label">Vendedor</label>
+                    <div class="col-sm-1">
+                        <input type="text" class="form-control" id="id_vendedor">
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="nombre_vendedor">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group">
+                    <span class="input-group-addon" >Asignado</span>
+                    <input type="text" class="form-control" id="fechahora_asignacion" aria-describedby="basic-addon1">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer centrado">
+        <button id="boton-retornar-detalle" type="button" class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Retornar
+        </button>
+    </div>
+</div>
+<script>
+    $("#boton-retornar-detalle").on('click', function () {
+        $('#td-linea').remove();
+    });
+</script>
