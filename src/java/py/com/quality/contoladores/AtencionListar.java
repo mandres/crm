@@ -38,9 +38,11 @@ public class AtencionListar extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {        
             
             int id_estadoatencion = Integer.parseInt(request.getParameter("id_estadoatencion"));
+            String fecha_desde = request.getParameter("fecha_desde");
+            String fecha_hasta = request.getParameter("fecha_hasta");
             
             AtencionDAO atencionDAO = new AtencionDAO();
-            Map valor = atencionDAO.listar(id_estadoatencion);
+            Map valor = atencionDAO.listar(id_estadoatencion, fecha_desde, fecha_hasta);
 
             JSONObject obj = new JSONObject();
             obj.put("tabla", valor.get("tabla"));

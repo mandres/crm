@@ -1,14 +1,17 @@
 package py.com.quality.DAO;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import py.com.quality.modelos.Atencion;
 import py.com.quality.modelos.Vendedor;
 import py.com.quality.utiles.Conexion;
+import py.com.quality.utiles.Util;
 
 public class AtencionDAO {
 
@@ -54,7 +57,8 @@ public class AtencionDAO {
         return valor;
     }
 
-    public Map listar(int filtroid_estadoatencion) {
+    public Map listar(int filtroid_estadoatencion, String fecha_desde, String fecha_hasta) {
+
         Map valor = new HashMap();
         String tabla = "";
         String where = "";
@@ -64,7 +68,7 @@ public class AtencionDAO {
         int atendiendo = 0;
         int cerrado = 0;
         if (filtroid_estadoatencion != 0) {
-            where = "where a.id_estadoatencion=" + filtroid_estadoatencion;
+            where = "and a.id_estadoatencion=" + filtroid_estadoatencion;
         }
 
         if (Conexion.conectar()) {
@@ -85,9 +89,12 @@ public class AtencionDAO {
                         + "	on (a.id_estadoatencion = e.id_estadoatencion) left join clientes c "
                         + "	on (a.id_cliente = c.id_cliente) left join secciones s "
                         + "	on (a.id_seccion = s.id_seccion) "
+                        + "where "
+                        + "     to_char(a.fechahora_recepcion, 'dd/mm/yyyy') between '" + fecha_desde + "' and '" + fecha_hasta + "' "
                         + " " + where
                         + " order by"
                         + "     1 desc";
+                System.out.println("--> sql AtencionListar: " + sql);
                 try (PreparedStatement ps = Conexion.getCon().prepareStatement(sql)) {
 
                     ResultSet rs = ps.executeQuery();
@@ -166,11 +173,11 @@ public class AtencionDAO {
                     ResultSet rs = ps.executeQuery();
                     if (rs.next()) {
                         atencion.setId_atencion(rs.getInt("id_atencion"));
-                        
+
                         Vendedor vendedor = new Vendedor();
                         vendedor.setId_vendedor(rs.getInt("id_vendedor"));
                         vendedor.setNombre_vendedor(rs.getString("nombre_vendedor"));
-                        
+
                         atencion.setVendedor(vendedor);
                         atencion.setFechahora_recepcion(rs.getTimestamp("fechahora_recepcion"));
                         atencion.setFechahora_asignacion(rs.getTimestamp("fechahora_asignacion"));

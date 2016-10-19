@@ -294,7 +294,11 @@ function atencion_agregar_ajax_success(json) {
 }
 
 function listar_atencion_ajax(id_estadoatencion) {
-    var pDatosFormulario = "&id_estadoatencion=" + id_estadoatencion;
+    var fecha_desde = $("#fecha_desde").val();
+    var fecha_hasta = $("#fecha_hasta").val();
+    
+    var pDatosFormulario = "&id_estadoatencion=" + id_estadoatencion + 
+            "&fecha_desde="+fecha_desde+"&fecha_hasta="+fecha_hasta;
     var pUrl = 'atencion/listar';
     var pBeforeSend = '';
     var pSuccess = 'listar_atencion_ajax_success(json)';
