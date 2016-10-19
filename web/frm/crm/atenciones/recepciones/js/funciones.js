@@ -25,6 +25,13 @@ function inicializar_formulario() {
     });
     $.datetimepicker.setLocale('es');
 
+// Inicializar fechas
+//      Formulario Atenciones
+    var fecha_hoy = hoyDMA();
+    $("#fecha_desde").val(fecha_hoy);
+    $("#fecha_hasta").val(fecha_hoy);
+
+
 // Inicializar funciones de los botones
 
     $("#botonAgregar").on('click', function () {
@@ -338,6 +345,10 @@ function atencion_buscarId_ajax_success(json) {
     $("#fechahora_asignado").val(json.fechahora_asignado);
     $("#fechahora_inicioatencion").val(json.fechahora_inicioatencion);
     $("#fechahora_finatencion").val(json.fechahora_finatencion);
+
+    $("#dif-asignado-recibido").val(json.dif_recepcion_asignado);
+    $("#dif-atendido-asignado").val(json.dif_atendido_asignado);
+    $("#dif-cerrado-atendido").val(json.dif_cerrado_atendido);
 }
 
 // Habilitar y Desabilitar Botones

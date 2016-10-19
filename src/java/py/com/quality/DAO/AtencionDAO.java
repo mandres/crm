@@ -120,7 +120,6 @@ public class AtencionDAO {
                                 + "     <td>" + id_atencion + "</td>"
                                 + "     <td>" + id_cliente + "</td>"
                                 + "     <td>" + nombre_cliente + "</td>"
-                                + "     <td>" + fechahora_recepcion + "</td>"
                                 + "     <td>" + nombre_seccion + "</td>"
                                 + "     <td>" + descripcion_estadoatencion + "</td>"
                                 + "</tr>";

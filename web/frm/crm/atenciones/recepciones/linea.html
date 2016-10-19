@@ -5,10 +5,10 @@
                 <div class="form-group">
                     <label for="id_vendedor" class="col-sm-1 control-label">Vendedor</label>
                     <div class="col-sm-1">
-                        <input type="text" class="form-control" id="id_vendedor">
+                        <input type="text" class="form-control" id="id_vendedor" readonly="readonly">
                     </div>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="nombre_vendedor">
+                        <input type="text" class="form-control" id="nombre_vendedor" readonly="readonly">
                     </div>
                 </div>
             </div>
@@ -16,15 +16,19 @@
                 <div class="form-group">
                     <label for="id_vendedor" class="col-sm-1 control-label">Recibido</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" id="fechahora_recepcion">
+                        <input type="text" class="form-control" id="fechahora_recepcion" readonly="readonly">
                     </div>
+                     <label class="col-sm-2 control-label centrado">Tiempo Trans.</label>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group">
                     <label for="id_vendedor" class="col-sm-1 control-label">Asignado</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" id="fechahora_asignado">
+                        <input type="text" class="form-control" id="fechahora_asignado" readonly="readonly">
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control derecha" id="dif-asignado-recibido" readonly="readonly">
                     </div>
                 </div>
             </div>
@@ -32,7 +36,10 @@
                 <div class="form-group">
                     <label for="id_vendedor" class="col-sm-1 control-label">Atendido</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" id="fechahora_inicioatencion">
+                        <input type="text" class="form-control" id="fechahora_inicioatencion" readonly="readonly">
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control derecha" id="dif-atendido-asignado" readonly="readonly">
                     </div>
                 </div>
             </div>
@@ -40,7 +47,10 @@
                 <div class="form-group">
                     <label for="id_vendedor" class="col-sm-1 control-label">Cerrado</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" id="fechahora_finatencion">
+                        <input type="text" class="form-control" id="fechahora_finatencion" readonly="readonly">
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control derecha" id="dif-cerrado-atendido" readonly="readonly">
                     </div>
                 </div>
             </div>
@@ -55,5 +65,5 @@
 <script>
     $("#boton-retornar-detalle").on('click', function () {
         $('#td-linea').remove();
-    });
+    });   
 </script>

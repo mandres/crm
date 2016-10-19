@@ -88,6 +88,61 @@ public class Util {
         return diffDays;
     }
 
+    public static String difFechaHora(String fechaInicial, String fechaFinal) {
+
+        java.util.GregorianCalendar jCal = new java.util.GregorianCalendar();
+        java.util.GregorianCalendar jCal2 = new java.util.GregorianCalendar();
+
+        if (fechaInicial == null || fechaFinal == null) {
+            return "Sin Datos";
+        } else {
+            jCal.set(Integer.parseInt(fechaInicial.substring(6, 10)), Integer.parseInt(fechaInicial.substring(3, 5)) - 1, Integer.parseInt(fechaInicial.substring(0, 2)), Integer.parseInt(fechaInicial.substring(11, 13)), Integer.parseInt(fechaInicial.substring(14, 16)), Integer.parseInt(fechaInicial.substring(17, 19)));
+            jCal2.set(Integer.parseInt(fechaFinal.substring(6, 10)), Integer.parseInt(fechaFinal.substring(3, 5)) - 1, Integer.parseInt(fechaFinal.substring(0, 2)), Integer.parseInt(fechaFinal.substring(11, 13)), Integer.parseInt(fechaFinal.substring(14, 16)), Integer.parseInt(fechaFinal.substring(17, 19)));
+
+            long diferencia = jCal2.getTime().getTime() - jCal.getTime().getTime();
+            double minutos = diferencia / (1000 * 60);
+            long horas = (long) (minutos / 60);
+            long minuto = (long) (minutos % 60);
+            long segundos = (long) diferencia % 1000;
+
+            String resultado = horas + " h " + minuto + " m " + segundos + " s";
+
+            return resultado;
+        }
+    }
+
+    public static long difFechas(String fecha1, String fecha2) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+        //fecha inicio
+        java.util.Date utilDate1 = new java.util.Date();
+        try {
+            utilDate1 = sdf.parse(fecha1);
+        } catch (ParseException ex) {
+            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Calendar fechaInicio = new GregorianCalendar();
+        fechaInicio.setTime(utilDate1);
+
+        //fecha fin
+        java.util.Date utilDate2 = new java.util.Date();
+        try {
+            utilDate2 = sdf.parse(fecha2);
+        } catch (ParseException ex) {
+            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Calendar fechaFin = new GregorianCalendar();
+        fechaFin.setTime(utilDate2);
+
+        //restamos las fechas como se puede ver son de tipo Calendar,
+        //debemos obtener el valor long con getTime.getTime.
+        long mil1 = fechaInicio.getTimeInMillis();
+        long mil2 = fechaFin.getTimeInMillis();
+        long dif = mil1 - mil2;
+        long diffDays = dif / (24 * 60 * 60 * 1000);
+        return diffDays;
+    }
+
     public static Date fechaSistema() {
         java.util.Date utilDate1 = new java.util.Date();
         long lnMilisegundos = utilDate1.getTime();
@@ -165,6 +220,19 @@ public class Util {
         } else {
             calendar.setTime(fecha);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+            string = sdf.format(fecha);
+            return string;
+        }
+    }
+
+    public static String sqlTimestampToStringDmA(Timestamp fecha) {
+        String string;
+        Calendar calendar = GregorianCalendar.getInstance();
+        if (fecha == null) {
+            return null;
+        } else {
+            calendar.setTime(fecha);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH);
             string = sdf.format(fecha);
             return string;
         }

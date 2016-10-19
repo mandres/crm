@@ -43,15 +43,26 @@ public class AtencionBuscarId extends HttpServlet {
             AtencionDAO atencionDAO = new AtencionDAO();
 
             Atencion atencion = atencionDAO.buscarId(id_atencion);
-           
+
+            String dif_recibido_asignado = Util.difFechaHora(Util.sqlTimestampToStringDmA(atencion.getFechahora_recepcion()),
+                    Util.sqlTimestampToStringDmA(atencion.getFechahora_asignacion()));
+            String dif_atendido_asignado = Util.difFechaHora(Util.sqlTimestampToStringDmA(atencion.getFechahora_asignacion()),
+                                           Util.sqlTimestampToStringDmA(atencion.getFechahora_inicioatencion()));
+            String dif_cerrado_atendido = Util.difFechaHora(Util.sqlTimestampToStringDmA(atencion.getFechahora_inicioatencion()), 
+                                        Util.sqlTimestampToStringDmA(atencion.getFechahora_finatencion()));
+            
+
             JSONObject obj = new JSONObject();
             obj.put("id_atencion", atencion.getId_atencion());
             obj.put("id_vendedor", atencion.getVendedor().getId_vendedor());
             obj.put("nombre_vendedor", atencion.getVendedor().getNombre_vendedor());
-            obj.put("fechahora_recepcion", Util.sqlTimestampToString(atencion.getFechahora_recepcion()));
-            obj.put("fechahora_asignado", Util.sqlTimestampToString(atencion.getFechahora_asignacion()));
-            obj.put("fechahora_inicioatencion", Util.sqlTimestampToString(atencion.getFechahora_inicioatencion()));
-            obj.put("fechahora_finatencion", Util.sqlTimestampToString(atencion.getFechahora_finatencion()));
+            obj.put("fechahora_recepcion", Util.sqlTimestampToStringDmA(atencion.getFechahora_recepcion()));
+            obj.put("fechahora_asignado", Util.sqlTimestampToStringDmA(atencion.getFechahora_asignacion()));
+            obj.put("fechahora_inicioatencion", Util.sqlTimestampToStringDmA(atencion.getFechahora_inicioatencion()));
+            obj.put("fechahora_finatencion", Util.sqlTimestampToStringDmA(atencion.getFechahora_finatencion()));
+            obj.put("dif_recepcion_asignado", dif_recibido_asignado);
+            obj.put("dif_atendido_asignado", dif_atendido_asignado);
+            obj.put("dif_cerrado_atendido", dif_cerrado_atendido);
 
             out.print(obj);
             out.flush();

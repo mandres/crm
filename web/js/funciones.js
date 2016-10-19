@@ -254,3 +254,53 @@ function deshabilitar_agregar() {
     $("#boton_agregar").prop("disabled", true);
     $("#boton_modificar").prop("disabled", false);
 }
+
+function primeraFechaMesAMD() {
+    var hoy = new Date();
+    var anio = hoy.getFullYear();
+    var mes = hoy.getMonth() + 1;
+    if (mes < 10) {
+        mes = "0" + mes;
+    }
+    var dia = hoy.getDate();
+    return  anio + "-" + mes + "-01";
+}
+
+function hoyAMD() {
+    var hoy = new Date();
+    var anio = hoy.getFullYear();
+    var mes = hoy.getMonth() + 1;
+    if (mes < 10) {
+        mes = "0" + mes;
+    }
+    var dia = hoy.getDate();
+    if (dia < 10) {
+        dia = "0" + dia;
+    }
+    return  anio + "-" + mes + "-" + dia;
+}
+
+function primeraFechaMesDMA() {
+    var hoy = new Date();
+    var anio = hoy.getFullYear();
+    var mes = hoy.getMonth() + 1;
+    if (mes < 10) {
+        mes = "0" + mes;
+    }
+    var dia = hoy.getDate();
+    return  "01/" + mes + "/" + anio;
+}
+
+function hoyDMA() {
+    var hoy = new Date();
+    var anio = hoy.getFullYear();
+    var mes = hoy.getMonth() + 1;
+    if (mes < 10) {
+        mes = "0" + mes;
+    }
+    var dia = hoy.getDate();
+    if (dia < 10) {
+        dia = "0" + dia;
+    }
+    return  dia + "/" + mes + "/" + anio;
+}
