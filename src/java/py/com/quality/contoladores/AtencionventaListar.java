@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import py.com.quality.DAO.AtencionDAO;
 import py.com.quality.DAO.AtencionventaDAO;
 import py.com.quality.modelos.Usuario;
 
