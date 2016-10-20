@@ -1,17 +1,15 @@
 package py.com.quality.DAO;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import py.com.quality.modelos.Atencion;
+import py.com.quality.modelos.Usuario;
 import py.com.quality.modelos.Vendedor;
 import py.com.quality.utiles.Conexion;
-import py.com.quality.utiles.Util;
 
 public class AtencionDAO {
 
@@ -68,7 +66,7 @@ public class AtencionDAO {
         int atendiendo = 0;
         int cerrado = 0;
         if (filtroid_estadoatencion != 0) {
-            where = "and a.id_estadoatencion=" + filtroid_estadoatencion;
+            where += "and a.id_estadoatencion=" + filtroid_estadoatencion;
         }
 
         if (Conexion.conectar()) {
@@ -194,5 +192,4 @@ public class AtencionDAO {
         Conexion.cerrar();
         return atencion;
     }
-
 }
