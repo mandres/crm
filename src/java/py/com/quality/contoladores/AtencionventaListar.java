@@ -13,15 +13,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import py.com.quality.DAO.AtencionDAO;
+import py.com.quality.DAO.AtencionventaDAO;
+import py.com.quality.modelos.Usuario;
 
 /**
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-@WebServlet(name = "AtencionListar", urlPatterns = {"/atencion/listar"})
-public class AtencionListar extends HttpServlet {
+@WebServlet(name = "AtencionventaListar", urlPatterns = {"/atencionventa/listar"})
+public class AtencionventaListar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,22 +37,19 @@ public class AtencionListar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {        
+        try (PrintWriter out = response.getWriter()) {  
             
-            int id_estadoatencion = Integer.parseInt(request.getParameter("id_estadoatencion"));
+            HttpSession sesion=request.getSession();
+            Usuario usuarioLogueado = (Usuario) sesion.getAttribute("usuarioLogueado");
+            
             String fecha_desde = request.getParameter("fecha_desde");
             String fecha_hasta = request.getParameter("fecha_hasta");
             
-            AtencionDAO atencionDAO = new AtencionDAO();
-            Map valor = atencionDAO.listar(id_estadoatencion, fecha_desde, fecha_hasta);
+            AtencionventaDAO atencionventaDAO = new AtencionventaDAO();
+            Map valor = atencionventaDAO.listar(fecha_desde, fecha_hasta, usuarioLogueado);
 
             JSONObject obj = new JSONObject();
             obj.put("tabla", valor.get("tabla"));
-            obj.put("pendiente", valor.get("pendiente"));
-            obj.put("asignado", valor.get("asignado"));
-            obj.put("atendiendo", valor.get("atendiendo"));
-            obj.put("cerrado", valor.get("cerrado"));
-            obj.put("todos", valor.get("todos"));
             out.print(obj);
             out.flush();
         }

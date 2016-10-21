@@ -10,17 +10,19 @@ public class Vendedor {
     private Timestamp fecha_inicioatencion;
     private Timestamp fecha_finatencion;
     private EstadoVendedor estadovendedor;
+    private Usuario usuario;
 
     public Vendedor() {
     }
 
-    public Vendedor(int id_vendedor, String nombre_vendedor, Seccion seccion, Timestamp fecha_inicioatencion, Timestamp fecha_finatencion, EstadoVendedor estadovendedor) {
+    public Vendedor(int id_vendedor, String nombre_vendedor, Seccion seccion, Timestamp fecha_inicioatencion, Timestamp fecha_finatencion, EstadoVendedor estadovendedor, Usuario usuario) {
         this.id_vendedor = id_vendedor;
         this.nombre_vendedor = nombre_vendedor;
         this.seccion = seccion;
         this.fecha_inicioatencion = fecha_inicioatencion;
         this.fecha_finatencion = fecha_finatencion;
         this.estadovendedor = estadovendedor;
+        this.usuario = usuario;
     }
 
     public int getId_vendedor() {
@@ -69,6 +71,14 @@ public class Vendedor {
 
     public void setEstadovendedor(EstadoVendedor estadovendedor) {
         this.estadovendedor = estadovendedor;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
    

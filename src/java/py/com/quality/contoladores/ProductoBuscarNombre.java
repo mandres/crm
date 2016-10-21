@@ -7,21 +7,24 @@ package py.com.quality.contoladores;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONObject;
-import py.com.quality.DAO.AtencionDAO;
+import org.json.simple.JSONArray;
+import py.com.quality.DAO.ClienteDAO;
+import py.com.quality.DAO.ProductoDAO;
+import py.com.quality.modelos.Cliente;
+import py.com.quality.modelos.Producto;
 
 /**
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-@WebServlet(name = "AtencionListar", urlPatterns = {"/atencion/listar"})
-public class AtencionListar extends HttpServlet {
+@WebServlet(name = "ProductoBuscarNombre", urlPatterns = {"/producto/buscar/nombre"})
+public class ProductoBuscarNombre extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,23 +38,21 @@ public class AtencionListar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {        
-            
-            int id_estadoatencion = Integer.parseInt(request.getParameter("id_estadoatencion"));
-            String fecha_desde = request.getParameter("fecha_desde");
-            String fecha_hasta = request.getParameter("fecha_hasta");
-            
-            AtencionDAO atencionDAO = new AtencionDAO();
-            Map valor = atencionDAO.listar(id_estadoatencion, fecha_desde, fecha_hasta);
+        try (PrintWriter out = response.getWriter()) {
+            String bnombre = request.getParameter("bnombre");
+            bnombre = bnombre.replace(" ", "%");
+            int pagina = Integer.parseInt(request.getParameter("bpagina"));
+            System.out.println("---> " + bnombre);
 
-            JSONObject obj = new JSONObject();
-            obj.put("tabla", valor.get("tabla"));
-            obj.put("pendiente", valor.get("pendiente"));
-            obj.put("asignado", valor.get("asignado"));
-            obj.put("atendiendo", valor.get("atendiendo"));
-            obj.put("cerrado", valor.get("cerrado"));
-            obj.put("todos", valor.get("todos"));
-            out.print(obj);
+            ProductoDAO productoDAO= new ProductoDAO();
+            ArrayList<Producto> datos = productoDAO.buscarNombre(bnombre, pagina);
+
+            JSONArray jArray = new JSONArray();
+
+            for (Producto producto : datos) {
+                jArray.add(producto.getJSONObject());
+            }
+            out.print(jArray);
             out.flush();
         }
     }

@@ -25,6 +25,13 @@ function inicializar_formulario() {
     });
     $.datetimepicker.setLocale('es');
 
+// Inicializar fechas
+//      Formulario Atenciones
+    var fecha_hoy = hoyDMA();
+    $("#fecha_desde").val(fecha_hoy);
+    $("#fecha_hasta").val(fecha_hoy);
+
+
 // Inicializar funciones de los botones
 
     $("#botonAgregar").on('click', function () {
@@ -287,7 +294,11 @@ function atencion_agregar_ajax_success(json) {
 }
 
 function listar_atencion_ajax(id_estadoatencion) {
-    var pDatosFormulario = "&id_estadoatencion=" + id_estadoatencion;
+    var fecha_desde = $("#fecha_desde").val();
+    var fecha_hasta = $("#fecha_hasta").val();
+    
+    var pDatosFormulario = "&id_estadoatencion=" + id_estadoatencion + 
+            "&fecha_desde="+fecha_desde+"&fecha_hasta="+fecha_hasta;
     var pUrl = 'atencion/listar';
     var pBeforeSend = '';
     var pSuccess = 'listar_atencion_ajax_success(json)';
@@ -310,12 +321,38 @@ function listar_atencion_ajax_success(json) {
 
 function seleccionarIdatencion() {
     $("#tbody-atencion tr").on('click', function () {
+        var id_atencion = $(this).find('td').eq(0).html();
+        $("#tbody-atencion tr").each(function () {
+            $('#td-linea').remove();
+        });
         $(this).after("<tr><td id='td-linea' colspan='6'></td></tr>");
         $("#td-linea").load("frm/crm/atenciones/recepciones/linea.html", function () {
-
+            buscarIdatencion(id_atencion);
         });
     });
+}
 
+function buscarIdatencion(id_atencion) {
+    var pDatosFormulario = "&id_atencion=" + id_atencion;
+    var pUrl = 'atencion/buscarId';
+    var pBeforeSend = '';
+    var pSuccess = 'atencion_buscarId_ajax_success(json)';
+    var pError = 'ajax_error()';
+    var pComplete = '';
+    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
+}
+
+function atencion_buscarId_ajax_success(json) {
+    $("#id_vendedor").val(json.id_vendedor);
+    $("#nombre_vendedor").val(json.nombre_vendedor);
+    $("#fechahora_recepcion").val(json.fechahora_recepcion);
+    $("#fechahora_asignado").val(json.fechahora_asignado);
+    $("#fechahora_inicioatencion").val(json.fechahora_inicioatencion);
+    $("#fechahora_finatencion").val(json.fechahora_finatencion);
+
+    $("#dif-asignado-recibido").val(json.dif_recepcion_asignado);
+    $("#dif-atendido-asignado").val(json.dif_atendido_asignado);
+    $("#dif-cerrado-atendido").val(json.dif_cerrado_atendido);
 }
 
 // Habilitar y Desabilitar Botones
