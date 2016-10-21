@@ -232,8 +232,7 @@ public class ClienteDAO {
                         Tipocliente tipocliente = new Tipocliente();
                         tipocliente.setId_tipocliente(rs.getInt("id_tipocliente"));
                         tipocliente.setNombre_tipocliente(rs.getString("nombre_tipocliente"));
-
-                        Cliente cliente = new Cliente();
+                       Cliente cliente = new Cliente();
                         cliente.setId_cliente(rs.getInt("id_cliente"));
                         cliente.setCodigo_cliente(rs.getInt("codigo_cliente"));
                         cliente.setCedula_cliente(rs.getString("cedula_cliente"));
