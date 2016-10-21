@@ -54,7 +54,7 @@ public class VendedorBuscarIdUsuario extends HttpServlet {
             obj.put("nombre_seccion", vendedor.getSeccion().getNombre_seccion());
             obj.put("fecha_inicioatencion", vendedor.getFecha_inicioatencion());
             obj.put("fecha_finatencion", vendedor.getFecha_finatencion());
-            obj.put("id_estadoatencion", vendedor.getEstadovendedor().getId_estadovendedor());
+            obj.put("id_estadovendedor", vendedor.getEstadovendedor().getId_estadovendedor());
             obj.put("descripcion_estadoatencion", vendedor.getEstadovendedor().getDescripcion_estadovendedor());
             obj.put("id_usuario", vendedor.getUsuario().getId_usuario());
 

@@ -1,5 +1,6 @@
 function inicializar_formulario() {
     verificar_sesion_ajax();
+    buscar_estadovendedor_ajax();
 // Iniciar toggle estado vendedor
 
     $("#toggle-estado-vendedor").bootstrapToggle();
@@ -41,6 +42,24 @@ function actualizar_estadovendedor_ajax_success(json) {
         mostrar_mensaje('Mensaje del Sistema', 'MODIFICADO: El estado ha sido modificado', 'Aceptar', '');
     } else {
         mostrar_mensaje('Mensaje del Sistema', 'Error: No se ha podido Modificar', 'Aceptar', '');
+    }
+}
+
+function buscar_estadovendedor_ajax() {
+    var pDatosFormulario = "";
+    var pUrl = 'vendedor/buscar/idusuario';
+    var pBeforeSend = '';
+    var pSuccess = 'buscar_estadovendedor_ajax_success(json)';
+    var pError = 'ajax_error()';
+    var pComplete = '';
+    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
+}
+function buscar_estadovendedor_ajax_success(json) {
+    var id_estadovendedor = json.id_estadovendedor;
+    if (id_estadovendedor === 1) {
+        $("#toggle-estado-vendedor").bootstrapToggle('on');
+    } else {
+        $("#toggle-estado-vendedor").bootstrapToggle('off');
     }
 }
 
