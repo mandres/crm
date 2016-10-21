@@ -7,8 +7,6 @@ package py.com.quality.contoladores;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,18 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import py.com.quality.DAO.ClienteDAO;
-import py.com.quality.modelos.Ciudad;
-import py.com.quality.modelos.Cliente;
+import py.com.quality.DAO.VendedorDAO;
 import py.com.quality.modelos.Usuario;
-import py.com.quality.utiles.Util;
+import py.com.quality.modelos.Vendedor;
 
 /**
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-@WebServlet(name = "ClienteModificar", urlPatterns = {"/cliente/modificar"})
-public class ClienteModificar extends HttpServlet {
+@WebServlet(name = "VendedorBuscarIdUsuario", urlPatterns = {"/vendedor/buscar/idusuario"})
+public class VendedorBuscarIdUsuario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,47 +38,26 @@ public class ClienteModificar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            int id_cliente = Integer.parseInt(request.getParameter("id_cliente"));
-            String nombre_cliente =  request.getParameter("nombre_cliente");
-            String direccion_cliente = request.getParameter("direccion_cliente");
-            int id_ciudad = Integer.parseInt(request.getParameter("id_ciudad"));
-            Date fecha_nacimiento_cliente = Date.valueOf(Util.dmaToAmd(request.getParameter("fecha_nacimiento_cliente")));
-            String mail_cliente = request.getParameter("mail_cliente");
-            String telefono_cliente = request.getParameter("telefono_cliente");
-            String contacto_cliente = request.getParameter("contacto_cliente");
-            String cedula_cliente = request.getParameter("cedula_cliente");
-            String ruc_cliente = request.getParameter("ruc_cliente");
 
-            
             HttpSession sesion = request.getSession();
             Usuario usuarioLogueado = (Usuario) sesion.getAttribute("usuarioLogueado");
 
-            Cliente cliente = new Cliente();
-            
-            cliente.setId_cliente(id_cliente);
-            cliente.setNombre_cliente(nombre_cliente);
-            cliente.setDireccion_cliente(direccion_cliente);
-            
-            Ciudad ciudad = new Ciudad();
-            ciudad.setId_ciudad(id_ciudad);
-            
-            cliente.setCiudad(ciudad);
-            cliente.setFecha_nacimiento_cliente(fecha_nacimiento_cliente);
-            cliente.setMail_cliente(mail_cliente);
-            cliente.setTelefono_cliente(telefono_cliente);
-            cliente.setContacto_cliente(contacto_cliente);         
-            cliente.setUsuario_auditoria(usuarioLogueado);
-            
-            
-            cliente.setCedula_cliente(cedula_cliente);
-            cliente.setRuc_cliente(ruc_cliente);
+            int id_usuario = usuarioLogueado.getId_usuario();
 
-            ClienteDAO clienteDAO = new ClienteDAO();
-            Map agregado = clienteDAO.modificar(cliente);
+           VendedorDAO vendedorDAO = new VendedorDAO();
+            Vendedor vendedor = vendedorDAO.buscarIdusuario(id_usuario);
 
             JSONObject obj = new JSONObject();
-            obj.put("modificado", agregado.get("ok"));
-            obj.put("mensaje", agregado.get("mensaje"));
+            obj.put("id_vendedor", vendedor.getId_vendedor());
+            obj.put("nombre_vendedor", vendedor.getNombre_vendedor());
+            obj.put("id_seccion", vendedor.getSeccion().getId_seccion());
+            obj.put("nombre_seccion", vendedor.getSeccion().getNombre_seccion());
+            obj.put("fecha_inicioatencion", vendedor.getFecha_inicioatencion());
+            obj.put("fecha_finatencion", vendedor.getFecha_finatencion());
+            obj.put("id_estadoatencion", vendedor.getEstadovendedor().getId_estadovendedor());
+            obj.put("descripcion_estadoatencion", vendedor.getEstadovendedor().getDescripcion_estadovendedor());
+            obj.put("id_usuario", vendedor.getUsuario().getId_usuario());
+
             out.print(obj);
             out.flush();
         }

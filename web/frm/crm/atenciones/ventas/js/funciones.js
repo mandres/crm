@@ -36,7 +36,7 @@ function actualizar_estadovendedor_ajax(estado_vendedor) {
     var pComplete = '';
     ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
 }
-function actualizar_estadovendedor_ajax(json) {
+function actualizar_estadovendedor_ajax_success(json) {
     if (json.modificado) {
         mostrar_mensaje('Mensaje del Sistema', 'MODIFICADO: El estado ha sido modificado', 'Aceptar', '');
     } else {

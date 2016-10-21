@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import py.com.quality.DAO.RolDAO;
 import py.com.quality.DAO.VendedorDAO;
-import py.com.quality.modelos.Rol;
 import py.com.quality.modelos.Usuario;
 
 /**
@@ -44,8 +42,9 @@ public class VendedorModificarEstado extends HttpServlet {
             Usuario usuarioLogueado = (Usuario) sesion.getAttribute("usuarioLogueado");
 
             int id_usuario = usuarioLogueado.getId_usuario();
+
             boolean estado_vendedor = Boolean.valueOf(request.getParameter("estado_vendedor"));
-            int id_estadovendedor = 0;
+            int id_estadovendedor;
 
             if (estado_vendedor) {
                 id_estadovendedor = 1;
@@ -57,7 +56,7 @@ public class VendedorModificarEstado extends HttpServlet {
             boolean modificado = vendedorDAO.modificar_estado(id_usuario, id_estadovendedor);
 
             JSONObject obj = new JSONObject();
-            obj.put("modificado", modificado);
+            obj.put("modificado", String.valueOf(modificado));
 
             out.print(obj);
             out.flush();
