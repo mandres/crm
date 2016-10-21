@@ -1,7 +1,7 @@
 
 // RECEPCION
 
-/*function inicializar_formulario() {
+function inicializar_formulario() {
     verificar_sesion_ajax();
     $("#codigo_producto").focus();
 
@@ -29,17 +29,17 @@
     $("#botonSalir").on('click', function () {
         $('aside').html("");
     });
-}*/
+}
 
 
-function inicializar_formulario() {
+/*function inicializar_formulario() {
     verificar_sesion_ajax();
     buscar_asignacion();
     $("#buscar").css("display", "none");
     $("#botonSalir").on('click', function () {
         $('aside').html("");
     });
-}
+}*/
 
 // VALIDAR DATOS FORMULARIO
 
@@ -127,14 +127,14 @@ function buscar_producto() {
 function buscar_producto_success(json) {
     var datos = "";
     $.each(json, function (key, value) {
-        datos += "<tr onclick='seleccionar_producto($(this))'>";
+        datos += "<tr onclick= 'seleccionar_producto($(this))'>";
         datos += "<td>" + value.id_producto + "</td>";
         datos += "<td>" + value.nombre_producto + "</td>";
-        datos += "<td>" + value.codigo_producto + "</td>";
+        datos += "<td>" + value.codigo_producto+ "</td>";
         datos += "</tr>";
     });
     if (datos === "") {
-        datos = "<tr style='color: red'><td  colspan=5>No se encuentra ningun cliente con los parametros ingresados ...</td></tr>";
+        datos = "<tr style='color: red'><td  colspan=5>No se encuentra ningun producto con los parametros ingresados ...</td></tr>";
     }
 
     $('#tbody-productos').html(datos);
@@ -159,7 +159,7 @@ function buscar_idproducto_ajax(id_producto) {
 
 function buscar_producto_ajax_success(json) {
     $('#id_producto').val(json.id_producto);
-    $('#nombre_prodcuto').val(json.nombre_producto);
+    $('#nombre_producto').val(json.nombre_producto);
     $('#codigo_producto').val(json.codigo_producto);
     $('#id_grupo').val(json.grupo);
     $('#nombre_grupo').val(json.nombre_grupo);
@@ -168,37 +168,15 @@ function buscar_producto_ajax_success(json) {
     $('#id_talle').val(json.id_talle);
     $('#nombre_talle').val(json.nombre_talle);
     $('#id_categoria').val(json.id_categoria);
-    $('#nombre_categoria').val(json.nombre_categoria);
+    //$('#nombre_categoria').val(json.nombre_categoria);
     $('#id_dependencia').val(json.id_dependencia);
-    $('#nombre_dependencia').val(json.nombre_dependencia);    
+    $('#nombre_dependencia').val(json.nombre_dependencia);
     $('#id_sexo').val(json.id_sexo);
-    $('#nombre_sexo').val(json.nombre_sexo);
-    $('#id_edad').val(json.id_edad);
-    $('#nombre_edad').val(json.nombre_edad);
-    
+    $('#id_edad').val(json.id_edad);     
     $("#buscar").fadeOut(100, function () {
         $("#panelPrograma").fadeIn(100);
     });
 }
-
-/*function buscar_ciudad_por_nombre() {
-    var pDatosFormulario = '';
-    var pUrl = 'ciudad/buscar/nombre';
-    var pBeforeSend = '';
-    var pSuccess = 'buscar_ciudad_por_nombre_success(json)';
-    var pError = 'ajax_error()';
-    var pComplete = '';
-    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
-}
-
-function buscar_ciudad_por_nombre_success(json) {
-    var datos = "";
-    $.each(json, function (key, value) {
-        datos += "<option value='" + value.id_ciudad + "'>" + value.nombre_ciudad + "</option>";
-
-    });
-    $('#id_ciudad').html(datos);
-}*/
 
 // AGREGAR PRODUCTO
 
@@ -249,26 +227,7 @@ function buscar_vendedor() {
     var pError = 'ajax_error()';
     var pComplete = '';
     ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
-}
 
-/*function buscar_vendedor_success(json) {
-    var datos = "";
-    $.each(json, function (key, value) {
-        datos += "<tr>";
-        datos += "<td>" + value.id_usuario + "</td>";
-        datos += "<td>" + value.nombre_usuario + "</td>";
-        datos += "<td>" + value.id_seccion + "</td>";
-        datos += "<td>" + value.nombre_seccion + "</td>";
-        datos += "<td>" + value.asignado_usuario + "</td>";
-        datos += "<td>" + value.atendido_usuario + "</td>";
-        datos += "<td>" + value.liberado_usuario + "</td>";
-        datos += "<td class='centrado'>" + value.estado_usuario + "</td>";
-        datos += "<td class='centrado'><button class='btn btn-primary btn-xs'>Asignar</button></td>";
-        datos += "</tr>";
-    });
-    console.log("--> " + datos);
-    $('#tbody-vendedores').html(datos);
-}*/
 
 // Habilitar y Desabilitar Botones
 
@@ -280,5 +239,6 @@ function habilitar_agregar() {
 function deshabilitar_agregar() {
     $("#botonAgregar").prop("disabled", true);
     $("#botonModificar").prop("disabled", false);
+}
 }
 
