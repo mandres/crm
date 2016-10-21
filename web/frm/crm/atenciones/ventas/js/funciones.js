@@ -55,9 +55,12 @@ function buscar_estadovendedor_ajax() {
     ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
 }
 function buscar_estadovendedor_ajax_success(json) {
+    var estado_vendedor = $(this).prop('checked');
     var id_estadovendedor = json.id_estadovendedor;
     if (id_estadovendedor === 1) {
-        $("#toggle-estado-vendedor").bootstrapToggle('on');
+        if (!estado_vendedor) {
+            $("#toggle-estado-vendedor").bootstrapToggle('on');
+        }
     } else {
         $("#toggle-estado-vendedor").bootstrapToggle('off');
     }
