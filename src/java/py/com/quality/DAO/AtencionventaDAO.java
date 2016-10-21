@@ -38,9 +38,7 @@ public class AtencionventaDAO {
                         + "     and a.id_estadoatencion <>'4' "
                         + "order by"
                         + "     1 desc";
-                System.out.println("--> sql AtencionventaListar: " + sql);
                 try (PreparedStatement ps = Conexion.getCon().prepareStatement(sql)) {
-
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
                         int id_atencion = rs.getInt("id_atencion");
@@ -63,13 +61,67 @@ public class AtencionventaDAO {
                                 + "     <td>" + id_cliente + "</td>"
                                 + "     <td>" + nombre_cliente + "</td>"
                                 + "     <td>" + descripcion_estadoatencion + "</td>"
-                                + "     <td></td>"                                
+                                + "     <td></td>"
                                 + "</tr>";
                     }
                     if (tabla.equals("")) {
                         tabla = "<tr><td  colspan=4>No existen registros ...</td></tr>";
                     }
                     valor.put("tabla", tabla);
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("--> " + ex.getLocalizedMessage());
+            }
+        }
+        Conexion.cerrar();
+        return valor;
+    }
+
+    public Map asignadoPendiente(int id_usuario) {
+
+        Map valor = new HashMap();
+        String tabla = "";
+        int cantidad = 0;
+
+        if (Conexion.conectar()) {
+            try {
+                String sql = "select "
+                        + "	a.id_atencion, "
+                        + "	a.id_cliente, "
+                        + "	c.nombre_cliente, "
+                        + "	to_char(a.fechahora_recepcion,'dd-mm-yyyy HH24:mm:ss') as fechahora_recepcion "
+                        + "	"
+                        + "from "
+                        + "	atenciones a left join clientes c "
+                        + "	on (a.id_cliente = c.id_cliente) left join vendedores v "
+                        + "	on (a.id_vendedor = v.id_vendedor) left join usuarios u "
+                        + "	on (v.id_usuario = u.id_usuario) "
+                        + "where "
+                        + "	a.id_estadoatencion = '2' and "
+                        + "	a.id_usuario = ?";
+                try (PreparedStatement ps = Conexion.getCon().prepareStatement(sql)) {
+                    ps.setInt(1, id_usuario);
+                    ResultSet rs = ps.executeQuery();
+                    while (rs.next()) {
+                        int id_atencion = rs.getInt("id_atencion");
+                        int id_cliente = rs.getInt("id_cliente");
+                        String nombre_cliente = rs.getString("nombre_cliente");
+                        String fechahora_recepcion = rs.getString("fechahora_recepcion");
+                        ++cantidad;
+                        tabla += "<tr>"
+                                + "     <td>" + id_atencion + "</td>"
+                                + "     <td>" + id_cliente + "</td>"
+                                + "     <td>" + nombre_cliente + "</td>"
+                                + "     <td>" + fechahora_recepcion + "</td>"
+                                + "     <td></td>"
+                                + "</tr>";
+                    }
+                    if (tabla.equals("")) {
+                        tabla = "<tr><td  colspan=4>No existen registros ...</td></tr>";
+                    }
+                    valor.put("tabla", tabla);
+                    valor.put("cantidad", cantidad);
                     ps.close();
                 }
             } catch (SQLException ex) {

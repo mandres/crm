@@ -18,8 +18,25 @@ function inicializar_formulario() {
     var fecha_hoy = hoyDMA();
     $("#fecha_desde").val(fecha_hoy);
     $("#fecha_hasta").val(fecha_hoy);
-
+    
+    buscar_asignacionpendiente_ajax();
     listar_atencionventa_ajax();
+}
+
+// buscar asignacion pendiente
+
+function buscar_asignacionpendiente_ajax() {
+    var pDatosFormulario = "";
+    var pUrl = 'atencionventa/asignadopendiente';
+    var pBeforeSend = '';
+    var pSuccess = 'buscar_asignacionpendiente_ajax_success(json)';
+    var pError = 'ajax_error()';
+    var pComplete = '';
+    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
+}
+
+function buscar_asignacionpendiente_ajax_success(json) {
+    $("#asignacion-pendiente").html(json.cantidad);
 }
 
 // actualizar estado vendedor
