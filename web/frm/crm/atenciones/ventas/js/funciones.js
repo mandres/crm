@@ -54,15 +54,19 @@ function buscar_estadovendedor_ajax() {
     var pComplete = '';
     ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
 }
+//cambio el estado del componente mediante la clase, para evitar usar el atributo change, ya que con esto se
+//ejecuta la funcion que actualiza el estado del vendedor
 function buscar_estadovendedor_ajax_success(json) {
     var estado_vendedor = $(this).prop('checked');
     var id_estadovendedor = json.id_estadovendedor;
     if (id_estadovendedor === 1) {
         if (!estado_vendedor) {
-            $("#toggle-estado-vendedor").bootstrapToggle('on');
+            $("#toggle-estado-vendedor").parent().removeClass().addClass('toggle btn btn-success');
+            $("#toggle-estado-vendedor").prop('checked', true);
         }
     } else {
-        $("#toggle-estado-vendedor").bootstrapToggle('off');
+        $("#toggle-estado-vendedor").parent().removeClass().addClass('toggle btn btn-danger off');
+        $("#toggle-estado-vendedor").prop('checked', false);
     }
 }
 
