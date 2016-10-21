@@ -18,12 +18,24 @@ function inicializar_formulario() {
     var fecha_hoy = hoyDMA();
     $("#fecha_desde").val(fecha_hoy);
     $("#fecha_hasta").val(fecha_hoy);
-    
-    buscar_asignacionpendiente_ajax();
+
     listar_atencionventa_ajax();
 }
 
+// acciones de botones
+
+$("#btn-actualizar-lista-asignacion").on('click', function () {
+    listar_atencionventa_ajax();
+});
+
+
 // buscar asignacion pendiente
+
+function ejecutar_buscar_asignacionpendiente() {
+    setInterval(function () {
+        buscar_asignacionpendiente_ajax();
+    }, 10000);
+}
 
 function buscar_asignacionpendiente_ajax() {
     var pDatosFormulario = "";
@@ -37,6 +49,7 @@ function buscar_asignacionpendiente_ajax() {
 
 function buscar_asignacionpendiente_ajax_success(json) {
     $("#asignacion-pendiente").html(json.cantidad);
+    $("#tbody-asignacion-pendiente").html(json.tabla);
 }
 
 // actualizar estado vendedor
@@ -96,7 +109,7 @@ function listar_atencionventa_ajax() {
     var pBeforeSend = '';
     var pSuccess = 'listar_atencionventa_ajax_success(json)';
     var pError = 'ajax_error()';
-    var pComplete = '';
+    var pComplete = 'ejecutar_buscar_asignacionpendiente()';
     ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
 }
 

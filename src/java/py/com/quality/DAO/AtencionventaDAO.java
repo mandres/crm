@@ -35,7 +35,7 @@ public class AtencionventaDAO {
                         + "where "
                         + "     to_char(a.fechahora_recepcion, 'dd/mm/yyyy') between '" + fecha_desde + "' and '" + fecha_hasta + "' "
                         + "     and v.id_usuario=" + usuariologueado.getId_usuario() + " "
-                        + "     and a.id_estadoatencion <>'4' "
+                        + "     and a.id_estadoatencion in('3','4') "
                         + "order by"
                         + "     1 desc";
                 try (PreparedStatement ps = Conexion.getCon().prepareStatement(sql)) {
@@ -61,7 +61,6 @@ public class AtencionventaDAO {
                                 + "     <td>" + id_cliente + "</td>"
                                 + "     <td>" + nombre_cliente + "</td>"
                                 + "     <td>" + descripcion_estadoatencion + "</td>"
-                                + "     <td></td>"
                                 + "</tr>";
                     }
                     if (tabla.equals("")) {
@@ -99,7 +98,7 @@ public class AtencionventaDAO {
                         + "	on (v.id_usuario = u.id_usuario) "
                         + "where "
                         + "	a.id_estadoatencion = '2' and "
-                        + "	a.id_usuario = ?";
+                        + "	v.id_usuario = ?";
                 try (PreparedStatement ps = Conexion.getCon().prepareStatement(sql)) {
                     ps.setInt(1, id_usuario);
                     ResultSet rs = ps.executeQuery();

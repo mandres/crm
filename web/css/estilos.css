@@ -26,6 +26,9 @@
 .derecha {
   text-align: right; }
 
+.izquierda {
+  text-align: left; }
+
 #logo {
   width: 300px;
   transition: all 3s;
@@ -289,6 +292,9 @@ ul {
 
 .espRow {
   padding-top: 5px; }
+
+#asignacion-pendiente {
+  background-color: yellow; }
 
 tbody {
   cursor: pointer; }

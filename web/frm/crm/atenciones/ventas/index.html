@@ -9,14 +9,39 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <a class="btn btn-primary" role="button" data-toggle="collapse" 
-                           href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                            <span id="asignacion-pendiente" class="badge"></span>
-                            Nueva Asignación
-                        </a>
+                        <div class="col-md-6 izquierda">
+                            <a class="btn btn-primary" role="button" data-toggle="collapse" 
+                               href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                <span id="asignacion-pendiente" class="badge"></span>
+                                Nueva Asignación
+                            </a>
+                        </div>
+                        <div class="col-md-6 derecha">
+                            <input id="toggle-estado-vendedor" type="checkbox" checked data-toggle="toggle" 
+                                   data-onstyle="success" data-offstyle="danger"
+                                   data-toggle="toggle" data-width="125" data-height="25"
+                                   data-on="Disponible" data-off="No Disponible">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="collapse" id="collapseExample">
                             <div class="well">
-                                ...
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Id Aten.</th>
+                                                <th>Id Cli.</th>
+                                                <th>Nombre Cliente</th>
+                                                <th>Fecha Recepcion</th>                            
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody-asignacion-pendiente">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -26,14 +51,13 @@
                     <div class="col-md-2">
                         <input type="text" class="form-control" id="fecha_desde" placeholder="Fecha Desde"/>
                     </div>
-                    <div class="col-md-2">
-                        <input type="text" class="form-control" id="fecha_hasta" placeholder="Fecha Hasta"/>
-                    </div>
-                    <div class="col-md-8 derecha">
-                        <input id="toggle-estado-vendedor" type="checkbox" checked data-toggle="toggle" 
-                               data-onstyle="success" data-offstyle="danger"
-                               data-toggle="toggle" data-width="125" data-height="25"
-                               data-on="Disponible" data-off="No Disponible">
+                    <div class="col-md-3">                        
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="fecha_hasta" placeholder="Fecha Hasta"/>
+                            <span class="input-group-btn">
+                                <button id="btn-actualizar-lista-asignacion" class="btn btn-success" type="button">Actualizar</button>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -44,8 +68,7 @@
                                 <th>Id Aten.</th>
                                 <th>Id Cli.</th>
                                 <th>Nombre Cliente</th>
-                                <th>Estado</th>
-                                <th>Atender</th>                                
+                                <th>Estado</th>                            
                             </tr>
                         </thead>
                         <tbody id="tbody-asignacion">
