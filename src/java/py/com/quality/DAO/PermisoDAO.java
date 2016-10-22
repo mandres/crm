@@ -71,8 +71,8 @@ public class PermisoDAO {
                                 + "<td><input type='checkbox' value='' " + eliminar + "></td>"
                                 + "<td><input type='checkbox' value='' " + listar + "></td>"
                                 + "<td>"
-                                + " <button data-toggle='modal' data-target='#confirmarEliminar' onclick='recuperar_idpermiso($(this))' type='button' class='btn btn-default'><span class='icon-eliminar'></span></button> "
-                                + " <button onclick='modificarPermiso($(this))' type='button' class='btn btn-default'><span class='icon-modificar'></span></button> "
+                                + " <button onclick='recuperar_idpermiso($(this))' type='button' class='btn btn-danger'><span class='glyphicon glyphicon-minus-sign'></span></button> "
+                                + " <button onclick='modificar_permiso_ajax($(this))' type='button' class='btn btn-warning'><span class='glyphicon glyphicon-pencil'></span></button> "
                                 + "</td>"
                                 + "</tr>";
                     }

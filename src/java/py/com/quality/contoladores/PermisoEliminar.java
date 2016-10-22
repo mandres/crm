@@ -39,14 +39,14 @@ public class PermisoEliminar extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             int id_permiso = Integer.parseInt(request.getParameter("id_permiso"));
-
+            System.out.print("id_recibido en DAO: "+id_permiso);
             HttpSession sesion = request.getSession();
             Usuario usuarioLogueado = (Usuario) sesion.getAttribute("usuarioLogueado");
 
 
             Permiso permiso = new Permiso();
             permiso.setId_permiso(id_permiso);
-            permiso.getUsuario_auditoria().setId_usuario(usuarioLogueado.getId_usuario());
+            permiso.setUsuario_auditoria(usuarioLogueado);
 
             PermisoDAO permisoDAO = new PermisoDAO();
             boolean eliminado = permisoDAO.eliminar(permiso);

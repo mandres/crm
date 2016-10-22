@@ -63,7 +63,7 @@
                             <td><input type="checkbox" value=""></td>
                             <td><input type="checkbox" value=""></td>
                             <td><input type="checkbox" value=""></td>
-                            <td><button id="btn-agregar-permiso" type="button" class="btn btn-default"><span class="icon-agregar"></span></button></td>
+                            <td><button id="btn-agregar-permiso" type="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus"></span></button></td>
                         </tr>
                         <tbody id="tbody-permisos">
                             <tr><td  colspan=9>Seleccione un Rol para recuperar los permisos asignados</td></tr>
@@ -103,45 +103,6 @@
 </div>
 <script src="frm/crm/definiciones/permisos/js/funciones.js" type="text/javascript"></script>
 <script>
-    verificar_sesion_ajax();
-    $("#buscar").css("display", "none");
-    $("#id_rol").focus();
-    siguiente_campo("#id_formulario", "#botonBuscarIdFormulario", true);
-    siguiente_campo("#id_rol", "#id_formulario", false);
-    $("#botonBuscarIdPermiso").on('click', function () {
-        $("#buscar").load("buscar.html");
-        $("#buscar").fadeIn("slow");
-        $("#panelPrograma").fadeOut("slow");
-    });
-    $("#botonBuscarIdRol").on('click', function () {
-        $("#buscar").load("frm/crm/definiciones/permisos/buscarRoles.html");
-        $("#buscar").fadeIn("slow");
-        $("#panelPrograma").fadeOut("slow");
-    });
-    $("#botonBuscarIdFormulario").on('click', function () {
-        $("#buscar").load("frm/crm/definiciones/permisos/buscarFormularios.html");
-        $("#buscar").fadeIn("slow");
-        $("#panelPrograma").fadeOut("slow");
-    });
-    $("#btn-agregar-permiso").on('click', function () {
-        var id_rol = $("#id_rol").val();
-        var id_formulario = $(this).parent().siblings().eq(0).find("input").val();
-        var agregar = $(this).parent().siblings().eq(2).find("input").prop("checked");
-        var modificar = $(this).parent().siblings().eq(3).find("input").prop("checked");
-        var eliminar = $(this).parent().siblings().eq(4).find("input").prop("checked");
-        var listar = $(this).parent().siblings().eq(5).find("input").prop("checked");
-        if (id_rol === "") {
-            mostrar_mensaje("#id_formulario", "danger", "Dato Incompleto", "Debe seleccionar un Formulario");
-        } else {
-            agregarPermiso(id_rol, id_formulario, agregar, modificar, eliminar, listar);
-        }
-    });
-    $("#botonEliminarAlert").on('click', function () {
-        eliminarPermiso();
-        $('#confirmarEliminar').modal('hide');
-    });
-    $("#botonSalir").on('click', function () {
-        $('aside').html("");
-    });
+    inicializar_formulario();
 </script>
 

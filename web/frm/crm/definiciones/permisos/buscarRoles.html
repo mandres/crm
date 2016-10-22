@@ -40,13 +40,13 @@
     </div>
 </div>
 <script>
-    buscarNombreRol();
+    buscar_nombreRol_ajax();
     $("#bnombre_rol").focus();
-    siguienteCampo("#bnombre_rol", "#botonBuscar", false);
+    siguiente_campo("#bnombre_rol", "#botonBuscar", false);
     $("#botonBuscar").on("click", function() {
         $("#contenidoBusqueda").html("");
         $("#bpagina").val("1"); 
-        buscarNombreRol();
+        buscar_nombreRol_ajax();
         $("#bnombre_rol").focus();
     });
     $("#anterior").on("click", function() {
@@ -55,13 +55,13 @@
         if (pag > 1) {
             $("#bpagina").val(pag - 1);
         }
-        buscarNombreRol();
+        buscar_nombreRol_ajax();
     });
     $("#siguiente").on("click", function() {
         $("#contenidoBusqueda").html("");
         var pag = parseInt($("#bpagina").val());
         $("#bpagina").val(pag + 1);
-        buscarNombreRol();
+        buscar_nombreRol_ajax();
     });
 
     $("#botonSalirBuscar").on('click', function () {
