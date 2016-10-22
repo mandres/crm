@@ -33,7 +33,7 @@ function inicializar_formulario() {
         if (id_rol === "") {
             mostrar_mensaje('Mensaje del Sistema', 'Error: Dato Incompleto, Debe seleccionar un Formulario', 'Aceptar', '');
         } else {
-            agregarPermiso(id_rol, id_formulario, agregar, modificar, eliminar, listar);
+            agregar_permiso_ajax(id_rol, id_formulario, agregar, modificar, eliminar, listar);
         }
     });
     $("#botonEliminarAlert").on('click', function () {
@@ -226,7 +226,8 @@ function buscar_idformulario_ajax_success(json) {
 }
 
 function buscar_nombreformulario_ajax() {
-    var pDatosFormulario = $("#formBuscar").serialize();
+    var id_rol = $("#id_rol").val();
+    var pDatosFormulario = $("#formBuscar").serialize() + "&id_rol="+id_rol;
     var pUrl = 'formulario/buscarNombre';
     var pBeforeSend = '';
     var pSuccess = 'buscar_nombreformulario_ajax_success(json)';

@@ -63,7 +63,7 @@ public class PermisoAgregar extends HttpServlet {
             permiso.setModificar_permiso(modificar_permiso);
             permiso.setEliminar_permiso(eliminar_permiso);
             permiso.setListar_permiso(listar_permiso);
-            permiso.getUsuario_auditoria().setId_usuario(usuarioLogueado.getId_usuario());
+            permiso.setUsuario_auditoria(usuarioLogueado);
 
             PermisoDAO permisoDAO = new PermisoDAO();
             boolean agregado = permisoDAO.agregar(permiso);
