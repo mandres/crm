@@ -1,17 +1,21 @@
 function inicializar_formulario() {
     verificar_sesion_ajax();
+    combo_seccion_ajax();
     limpiar_formulario();
-    
+
     siguiente_campo("#id_vendedor", "#nombre_vendedor", false);
     siguiente_campo("#nombre_vendedor", "#id_seccion", false);
     siguiente_campo("#id_seccion", "#id_usuario", false);
-   
+
 // Acciones de Botones
 
     $("#id_usuario").on("change", function () {
         buscar_id_usuario();
     });
     $("#boton-buscar-vendedor").on("click", function () {
+        buscar_vendedor($(this));
+    });
+    $("#boton-buscar-usuario").on("click", function () {
         buscar_usuario($(this));
     });
     $("#boton-agregar").on("click", function () {
@@ -33,6 +37,21 @@ function inicializar_formulario() {
     $("#boton-retornar").on("click", function () {
         $('aside').html("");
     });
+}
+//Cargar Seccion
+
+function combo_seccion_ajax() {
+    var pDatosFormulario = "";
+    var pUrl = 'seccion/generarLista';
+    var pBeforeSend = '';
+    var pSuccess = 'combo_seccion_ajax_success(json)';
+    var pError = 'ajax_error()';
+    var pComplete = '';
+    ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
+}
+
+function combo_seccion_ajax_success(json) {
+    $("#id_seccion").html(json.combo);
 }
 
 // buscar USUARIOS
@@ -56,18 +75,7 @@ function buscar_nombre_vendedor_ajax() {
 }
 
 function buscarNombre_vendedor_ajax_success(json) {
-    var datos = "";
-    $.each(json, function (key, value) {
-        datos += "<tr onclick='seleccionar_vendedor($(this))'>";
-        datos += "<td>" + value.id_vendedor + "</td>";
-        datos += "<td>" + value.nombre_vendedor + "</td>";
-        datos += "<td>" + value.id_seccion + "</td>";
-        datos += "<td>" + value.nombre_seccion + "</td>";
-        datos += "<td>" + value.id_usuario + "</td>";
-        datos += "<td>" + value.nombre_vendedor + "</td>";
-        datos += "</tr>";
-    });
-    $("#tbodyDatos").html(datos);
+    $("#tbodyDatos").html(json.tabla);
 }
 
 function seleccionar_vendedor($this) {
@@ -75,41 +83,59 @@ function seleccionar_vendedor($this) {
     var nombre_vendedor = $this.find("td").eq(1).text();
     var id_seccion = $this.find("td").eq(2).text();
     var id_usuario = $this.find("td").eq(4).text();
-}
 
-function recuperarDatos_desdeIdUsuario_ajax_success(json) {
-    $("#id_usuario").val(json.id_usuario);
-    $("#nombre_usuario").val(json.nombre_usuario);
-    $("#usuario_usuario").val(json.usuario_usuario);
-    $("#clave_usuario").val("");
+    $("#id_vendedor").val(id_vendedor);
+    $("#nombre_vendedor").val(nombre_vendedor);
+    $("#id_seccion").val(id_seccion);
+    $("#id_usuario").val(id_usuario);
 
-    $("#buscar-usuario").parent().remove();
+    $("#buscar-vendedor").parent().remove();
+    $("#boton-buscar-vendedor").prop("disabled", false);
     deshabilitar_agregar();
-    $("#boton-buscar-usuario").prop("disabled", false);
-    $("#nombre_usuario").focus();
-    $("#nombre_usuario").select();
-    usuariorolBuscarIdUsuario_ajax(json.id_usuario);
+}
+//Buscar usuario
+
+function buscar_usuario($this) {
+    $this.parent().parent().after("<div class='row'><div id='buscar-usuario' class='col col-md-12 border-color'></div></div>");
+    $("#buscar-usuario").load("frm/crm/definiciones/vendedores/buscarUsuarios.html", function () {
+        buscar_nombre_usuario_ajax();
+    });
+    $("#boton-buscar-usuario").prop("disabled", true);
 }
 
-function usuariorolBuscarIdUsuario_ajax(id_usuario) {
-    var pDatosFormulario = "&id_usuario=" + id_usuario;
-    var pUrl = 'usuariorol/buscarIdUsuario';
+function buscar_nombre_usuario_ajax() {
+    var pDatosFormulario = '';
+    var pUrl = 'usuario/buscar/nombre';
     var pBeforeSend = '';
-    var pSuccess = 'usuariorolBuscarIdUsuario_ajax_success(json)';
+    var pSuccess = 'buscarNombre_usuario_ajax_success(json)';
     var pError = 'ajax_error()';
     var pComplete = '';
     ajax(pDatosFormulario, pUrl, pBeforeSend, pSuccess, pError, pComplete);
 }
 
-function usuariorolBuscarIdUsuario_ajax_success(json) {
-    $("#tbodyDetalle").html(json.detalle);
+function buscarNombre_usuario_ajax_success(json) {
+    var datos = "";
+    $.each(json, function (key, value) {
+        datos += "<tr onclick='seleccionar_usuario($(this))'>";
+        datos += "<td>" + value.id_usuario + "</td>";
+        datos += "<td>" + value.nombre_usuario + "</td>";
+        datos += "<td>" + value.usuario_usuario + "</td>";
+        datos += "</tr>";
+    });
+    $("#tbodyDatos").html(datos);
 }
 
+function seleccionar_usuario($this) {
+    var id_usuario = $this.find("td").eq(0).text();
+    $("#id_usuario").val(id_usuario);
+    $("#buscar-usuario").parent().remove();
+    $("#boton-buscar-usuario").prop("disabled", false);
+  }
 
 // agregar
-function agregar_usuario_ajax() {
+function agregar_vendedor_ajax() {
     var pDatosFormulario = $('#form-formulario').serialize();
-    var pUrl = 'usuario/agregar';
+    var pUrl = 'vendedor/agregar';
     var pBeforeSend = '';
     var pSuccess = 'agregar_usuario_ajax_success(json)';
     var pError = 'ajax_error()';
@@ -202,9 +228,9 @@ function validar_formulario() {
     return ok;
 }
 
-function cerrar_usuario($this) {
+function cerrar_vendedor($this) {
     $this.parent().parent().parent().remove();
-    $("#boton-buscar-usuario").prop("disabled", false);
+    $("#boton-buscar-vendedor").prop("disabled", false);
 }
 
 function limpiar_formulario() {
@@ -336,6 +362,16 @@ function usuarioRol_modificar_ajax_success(json, id_usuario) {
     } else {
         mostrar_mensaje('Mensaje del Sistema', 'ERROR: ' + json.mensaje, 'Aceptar', '');
     }
+}
+
+function habilitar_agregar() {
+    $("#boton-agregar").prop("disabled", false);
+    $("#boton-modificar").prop("disabled", true);
+}
+
+function deshabilitar_agregar() {
+    $("#boton-agregar").prop("disabled", true);
+    $("#boton-modificar").prop("disabled", false);
 }
 
 

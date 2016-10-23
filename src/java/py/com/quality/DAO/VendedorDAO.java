@@ -109,9 +109,8 @@ public class VendedorDAO {
         return vendedor;
     }
 
-    public Map listar(String nombre) {
+    public String buscarNombre() {
 
-        Map valor = new HashMap();
         String tabla = "";
 
         if (Conexion.conectar()) {
@@ -126,9 +125,7 @@ public class VendedorDAO {
                         + "from "
                         + "	vendedores v left join usuarios u "
                         + "	on (v.id_usuario = u.id_usuario) left join secciones s "
-                        + "	on (v.id_seccion = s.id_seccion) "
-                        + "where"
-                        + "     upper(v.nombre_vendedor) like '%" + nombre.toUpperCase() + "%'";
+                        + "	on (v.id_seccion = s.id_seccion)";
                 try (PreparedStatement ps = Conexion.getCon().prepareStatement(sql)) {
 
                     ResultSet rs = ps.executeQuery();
@@ -138,21 +135,20 @@ public class VendedorDAO {
                         int id_seccion = rs.getInt("id_seccion");
                         String nombre_seccion = rs.getString("nombre_seccion");
                         int id_usuario = rs.getInt("id_usuario");
-                        String nombre_usuario = rs.getString("nombre_usuario");
+                        String usuario_usuario = rs.getString("usuario_usuario");
 
-                        tabla += "<tr>"
+                        tabla += "<tr onclick='seleccionar_vendedor($(this))'>"
                                 + "     <td>" + id_vendedor + "</td>"
                                 + "     <td>" + nombre_vendedor + "</td>"
                                 + "     <td>" + id_seccion + "</td>"
                                 + "     <td>" + nombre_seccion + "</td>"
                                 + "     <td>" + id_usuario + "</td>"
-                                + "     <td>" + nombre_usuario + "</td>"
+                                + "     <td>" + usuario_usuario + "</td>"
                                 + "</tr>";
                     }
                     if (tabla.equals("")) {
                         tabla = "<tr><td  colspan=6>No existen registros ...</td></tr>";
                     }
-                    valor.put("tabla", tabla);
                     ps.close();
                 }
             } catch (SQLException ex) {
@@ -160,7 +156,7 @@ public class VendedorDAO {
             }
         }
         Conexion.cerrar();
-        return valor;
+        return tabla;
     }
 
 }
