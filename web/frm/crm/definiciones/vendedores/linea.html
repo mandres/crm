@@ -1,0 +1,56 @@
+<div id="panel-linea" class="panel panel-default">
+    <div class="panel-body">
+        <form id="form-linea">
+            <input type="hidden" id="id_usuariorol" name="id_usuariorol" value="0">
+            <div class="row">
+                <div class="col col-md-1">
+                    <label for="id_rol">Id</label>
+                </div>
+                <div class="col col-md-2">
+                    <input type="text" id="id_rol" name="id_rol" class="form-control input-group-sm" value="0" placeholder="Id">
+                </div>
+                <div class="col col-md-1">
+                    <button id="boton-buscar-rol" type="button" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="col col-md-8">
+                    <input type="text" id="nombre_rol" name="nombre_rol" class="form-control input-group-sm" 
+                           value="" placeholder="Nombre de rol" readonly="readonly">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer centrado">
+        <button id="boton-guardar-detalle" type="button" class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Guardar
+        </button>
+        <button id="boton-retornar-detalle" type="button" class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Retornar
+        </button>
+    </div>
+</div>
+<script>
+    
+    siguiente_campo('#id_rol', '#boton-buscar-rol', true);
+    
+    $("#id_rol").on("change", function () {
+        buscar_id_rol();
+    });
+    $("#boton-buscar-rol").on("click", function () {
+        console.log("--> buscar rol");
+        buscar_rol($(this));
+    });
+    $("#boton-guardar-detalle").on('click', function () {
+        var id_usuariorol = $("#id_usuariorol").val();
+        if (id_usuariorol === 0) {
+           usuarioRol_agregar_ajax(); 
+        }else{
+            usuarioRol_modificar_ajax();
+        }
+        
+    });
+    $("#boton-retornar-detalle").on('click', function () {
+        $('#td-linea').remove();
+    });
+</script>

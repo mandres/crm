@@ -3,6 +3,8 @@ package py.com.quality.DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import py.com.quality.modelos.EstadoVendedor;
 import py.com.quality.modelos.Seccion;
 import py.com.quality.modelos.Usuario;
@@ -105,6 +107,60 @@ public class VendedorDAO {
         }
         Conexion.cerrar();
         return vendedor;
+    }
+
+    public Map listar(String nombre) {
+
+        Map valor = new HashMap();
+        String tabla = "";
+
+        if (Conexion.conectar()) {
+            try {
+                String sql = "select "
+                        + "	v.id_vendedor, "
+                        + "	v.nombre_vendedor, "
+                        + "	v.id_seccion, "
+                        + "	s.nombre_seccion,"
+                        + "	v.id_usuario, "
+                        + "	u.usuario_usuario "
+                        + "from "
+                        + "	vendedores v left join usuarios u "
+                        + "	on (v.id_usuario = u.id_usuario) left join secciones s "
+                        + "	on (v.id_seccion = s.id_seccion) "
+                        + "where"
+                        + "     upper(v.nombre_vendedor) like '%" + nombre.toUpperCase() + "%'";
+                try (PreparedStatement ps = Conexion.getCon().prepareStatement(sql)) {
+
+                    ResultSet rs = ps.executeQuery();
+                    while (rs.next()) {
+                        int id_vendedor = rs.getInt("id_vendedor");
+                        String nombre_vendedor = rs.getString("nombre_vendedor");
+                        int id_seccion = rs.getInt("id_seccion");
+                        String nombre_seccion = rs.getString("nombre_seccion");
+                        int id_usuario = rs.getInt("id_usuario");
+                        String nombre_usuario = rs.getString("nombre_usuario");
+
+                        tabla += "<tr>"
+                                + "     <td>" + id_vendedor + "</td>"
+                                + "     <td>" + nombre_vendedor + "</td>"
+                                + "     <td>" + id_seccion + "</td>"
+                                + "     <td>" + nombre_seccion + "</td>"
+                                + "     <td>" + id_usuario + "</td>"
+                                + "     <td>" + nombre_usuario + "</td>"
+                                + "</tr>";
+                    }
+                    if (tabla.equals("")) {
+                        tabla = "<tr><td  colspan=6>No existen registros ...</td></tr>";
+                    }
+                    valor.put("tabla", tabla);
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("--> " + ex.getLocalizedMessage());
+            }
+        }
+        Conexion.cerrar();
+        return valor;
     }
 
 }
