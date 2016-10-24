@@ -7,6 +7,7 @@ package py.com.quality.contoladores;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,16 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import py.com.quality.DAO.PermisoDAO;
-import py.com.quality.modelos.Permiso;
+import py.com.quality.DAO.AtencionventaDAO;
 import py.com.quality.modelos.Usuario;
 
 /**
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-@WebServlet(name = "PermisoModificar", urlPatterns = {"/permiso/modificar"})
-public class PermisoModificar extends HttpServlet {
+@WebServlet(name = "AtencionventaAsignadoPendiente", urlPatterns = {"/atencionventa/asignadopendiente"})
+public class AtencionventaAsignadoPendiente extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,30 +37,19 @@ public class PermisoModificar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            int id_permiso = Integer.parseInt(request.getParameter("id_permiso"));
-            boolean agregar_permiso = Boolean.valueOf(request.getParameter("agregar"));
-            boolean modificar_permiso = Boolean.valueOf(request.getParameter("modificar"));
-            boolean eliminar_permiso = Boolean.valueOf(request.getParameter("eliminar"));
-            boolean listar_permiso = Boolean.valueOf(request.getParameter("listar"));
-
-            HttpSession sesion = request.getSession();
+        try (PrintWriter out = response.getWriter()) {  
+            
+            HttpSession sesion=request.getSession();
             Usuario usuarioLogueado = (Usuario) sesion.getAttribute("usuarioLogueado");
-
-            Permiso permiso = new Permiso();
-            permiso.setId_permiso(id_permiso);
-            permiso.setAgregar_permiso(agregar_permiso);
-            permiso.setModificar_permiso(modificar_permiso);
-            permiso.setEliminar_permiso(eliminar_permiso);
-            permiso.setListar_permiso(listar_permiso);
-            permiso.setUsuario_auditoria(usuarioLogueado);
-
-            PermisoDAO permisoDAO = new PermisoDAO();
-            boolean modificado = permisoDAO.modificar(permiso);
+            
+            int id_usuario = usuarioLogueado.getId_usuario();
+            
+            AtencionventaDAO atencionventaDAO = new AtencionventaDAO();
+            Map valor = atencionventaDAO.asignadoPendiente(id_usuario);
 
             JSONObject obj = new JSONObject();
-            obj.put("modificado",modificado);
-            
+            obj.put("tabla", valor.get("tabla"));
+            obj.put("cantidad", valor.get("cantidad"));
             out.print(obj);
             out.flush();
         }

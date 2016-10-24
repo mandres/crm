@@ -35,11 +35,12 @@ public class FormularioBuscarNombre extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            int id_rol = Integer.parseInt(request.getParameter("id_rol"));
             String nombre_formulario = request.getParameter("bnombre_formulario");
             int pagina = Integer.parseInt(request.getParameter("bpagina"));
 
             FormularioDAO formularioDAO = new FormularioDAO();
-            String contenido = formularioDAO.buscarNombre(nombre_formulario, pagina);
+            String contenido = formularioDAO.buscarNombre(nombre_formulario, pagina, id_rol);
 
             JSONObject obj = new JSONObject();
             obj.put("contenido", contenido);

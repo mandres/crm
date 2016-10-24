@@ -8,7 +8,6 @@ package py.com.quality.contoladores;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +19,6 @@ import org.json.simple.JSONObject;
 import py.com.quality.DAO.ClienteDAO;
 import py.com.quality.modelos.Ciudad;
 import py.com.quality.modelos.Cliente;
-import py.com.quality.modelos.Tipocliente;
 import py.com.quality.modelos.Usuario;
 import py.com.quality.utiles.Util;
 

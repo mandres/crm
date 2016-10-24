@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import py.com.quality.modelos.Atencion;
-import py.com.quality.modelos.Usuario;
 import py.com.quality.modelos.Vendedor;
 import py.com.quality.utiles.Conexion;
 

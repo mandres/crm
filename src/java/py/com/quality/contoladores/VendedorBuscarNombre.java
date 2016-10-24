@@ -12,18 +12,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import py.com.quality.DAO.PermisoDAO;
-import py.com.quality.modelos.Permiso;
-import py.com.quality.modelos.Usuario;
+import py.com.quality.DAO.VendedorDAO;
 
 /**
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-@WebServlet(name = "PermisoModificar", urlPatterns = {"/permiso/modificar"})
-public class PermisoModificar extends HttpServlet {
+@WebServlet(name = "VendedorBuscarNombre", urlPatterns = {"/vendedor/buscar/nombre"})
+public class VendedorBuscarNombre extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,29 +35,13 @@ public class PermisoModificar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            int id_permiso = Integer.parseInt(request.getParameter("id_permiso"));
-            boolean agregar_permiso = Boolean.valueOf(request.getParameter("agregar"));
-            boolean modificar_permiso = Boolean.valueOf(request.getParameter("modificar"));
-            boolean eliminar_permiso = Boolean.valueOf(request.getParameter("eliminar"));
-            boolean listar_permiso = Boolean.valueOf(request.getParameter("listar"));
 
-            HttpSession sesion = request.getSession();
-            Usuario usuarioLogueado = (Usuario) sesion.getAttribute("usuarioLogueado");
-
-            Permiso permiso = new Permiso();
-            permiso.setId_permiso(id_permiso);
-            permiso.setAgregar_permiso(agregar_permiso);
-            permiso.setModificar_permiso(modificar_permiso);
-            permiso.setEliminar_permiso(eliminar_permiso);
-            permiso.setListar_permiso(listar_permiso);
-            permiso.setUsuario_auditoria(usuarioLogueado);
-
-            PermisoDAO permisoDAO = new PermisoDAO();
-            boolean modificado = permisoDAO.modificar(permiso);
+            VendedorDAO vendedorDAO = new VendedorDAO();
+            String tabla = vendedorDAO.buscarNombre();
 
             JSONObject obj = new JSONObject();
-            obj.put("modificado",modificado);
-            
+            obj.put("tabla", tabla);
+
             out.print(obj);
             out.flush();
         }

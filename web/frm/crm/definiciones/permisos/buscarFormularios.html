@@ -40,13 +40,13 @@
     </div>
 </div>
 <script>
-    buscarNombreFormulario();
+    buscar_nombreformulario_ajax();
     $("#bnombre_formulario").focus();
-    siguienteCampo("#bnombre_formulario", "#botonBuscar", false);
+    siguiente_campo("#bnombre_formulario", "#botonBuscar", false);
     $("#botonBuscar").on("click", function() {
         $("#contenidoBusqueda").html("");
         $("#bpagina").val("1"); 
-        buscarNombreFormulario();
+        buscar_nombreformulario_ajax();
         $("#bnombre_formulario").focus();
     });
     $("#anterior").on("click", function() {
@@ -55,13 +55,13 @@
         if (pag > 1) {
             $("#bpagina").val(pag - 1);
         }
-        buscarNombreFormulario();
+        buscar_nombreformulario_ajax();
     });
     $("#siguiente").on("click", function() {
         $("#contenidoBusqueda").html("");
         var pag = parseInt($("#bpagina").val());
         $("#bpagina").val(pag + 1);
-        buscarNombreFormulario();
+        buscar_nombreformulario_ajax();
     });
 
     $("#botonSalirBuscar").on('click', function () {

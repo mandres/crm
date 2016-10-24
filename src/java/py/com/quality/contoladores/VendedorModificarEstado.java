@@ -14,16 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import py.com.quality.DAO.PermisoDAO;
-import py.com.quality.modelos.Permiso;
+import py.com.quality.DAO.VendedorDAO;
 import py.com.quality.modelos.Usuario;
 
 /**
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-@WebServlet(name = "PermisoModificar", urlPatterns = {"/permiso/modificar"})
-public class PermisoModificar extends HttpServlet {
+@WebServlet(name = "VendedorModificarEstado", urlPatterns = {"/vendedor/modificar/estado"})
+public class VendedorModificarEstado extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,29 +37,27 @@ public class PermisoModificar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            int id_permiso = Integer.parseInt(request.getParameter("id_permiso"));
-            boolean agregar_permiso = Boolean.valueOf(request.getParameter("agregar"));
-            boolean modificar_permiso = Boolean.valueOf(request.getParameter("modificar"));
-            boolean eliminar_permiso = Boolean.valueOf(request.getParameter("eliminar"));
-            boolean listar_permiso = Boolean.valueOf(request.getParameter("listar"));
 
             HttpSession sesion = request.getSession();
             Usuario usuarioLogueado = (Usuario) sesion.getAttribute("usuarioLogueado");
 
-            Permiso permiso = new Permiso();
-            permiso.setId_permiso(id_permiso);
-            permiso.setAgregar_permiso(agregar_permiso);
-            permiso.setModificar_permiso(modificar_permiso);
-            permiso.setEliminar_permiso(eliminar_permiso);
-            permiso.setListar_permiso(listar_permiso);
-            permiso.setUsuario_auditoria(usuarioLogueado);
+            int id_usuario = usuarioLogueado.getId_usuario();
 
-            PermisoDAO permisoDAO = new PermisoDAO();
-            boolean modificado = permisoDAO.modificar(permiso);
+            boolean estado_vendedor = Boolean.valueOf(request.getParameter("estado_vendedor"));
+            int id_estadovendedor;
+
+            if (estado_vendedor) {
+                id_estadovendedor = 1;
+            } else {
+                id_estadovendedor = 3;
+            }
+
+            VendedorDAO vendedorDAO = new VendedorDAO();
+            boolean modificado = vendedorDAO.modificar_estado(id_usuario, id_estadovendedor);
 
             JSONObject obj = new JSONObject();
-            obj.put("modificado",modificado);
-            
+            obj.put("modificado", String.valueOf(modificado));
+
             out.print(obj);
             out.flush();
         }

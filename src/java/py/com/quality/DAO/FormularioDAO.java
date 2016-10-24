@@ -32,27 +32,33 @@ public class FormularioDAO {
         return formularios;
     }
 
-    public String buscarNombre(String nombre, int pagina) {
-        int offset=(pagina-1)*Util.REGISTROS_PAGINA;
+    public String buscarNombre(String nombre, int pagina, int id_rol) {
+        int offset = (pagina - 1) * Util.REGISTROS_PAGINA;
         String valor = "";
         if (Conexion.conectar()) {
             try {
-                String sql = "select * from formularios where upper(nombre_formulario) like '%" +
-                        nombre.toUpperCase() +
-                        "%' "+
-                        "order by id_formulario "+
-                        "offset "+ offset + " limit "+ Util.REGISTROS_PAGINA;
-                System.out.println("--> "+sql);
+                String sql = "select * from formularios f where upper(nombre_formulario) like '%"
+                        + nombre.toUpperCase()
+                        + "%' "
+                        + " and not exists (select id_formulario "
+                        + "				 from "
+                        + "					permisos p "
+                        + "				 where "
+                        + "					f.id_formulario = p.id_formulario and "
+                        + "					id_rol= " + id_rol + ") "
+                        + "order by id_formulario "
+                        + "offset " + offset + " limit " + Util.REGISTROS_PAGINA;
+                System.out.println("--> " + sql);
                 try (PreparedStatement ps = Conexion.getCon().prepareStatement(sql)) {
                     ResultSet rs = ps.executeQuery();
                     String tabla = "";
                     while (rs.next()) {
                         tabla += "<tr>"
-                               + "<td>" + rs.getString("id_formulario") + "</td>"
-                               + "<td>" + rs.getString("nombre_formulario") + "</td>"
-                               + "</tr>";
+                                + "<td>" + rs.getString("id_formulario") + "</td>"
+                                + "<td>" + rs.getString("nombre_formulario") + "</td>"
+                                + "</tr>";
                     }
-                    if(tabla.equals("")){
+                    if (tabla.equals("")) {
                         tabla = "<tr><td  colspan=2>No existen registros ...</td></tr>";
                     }
                     ps.close();
